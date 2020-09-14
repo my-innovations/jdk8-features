@@ -1,0 +1,5 @@
+
+
+Consumer is a buildt in functional interface. it returns nothing
+BiConsumer is a buildt in functional interface. it returns nothing
+Predicate is a buildt in functional interface.it returns either true/false
