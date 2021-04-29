@@ -176,7 +176,6 @@ private static void countNoOfOccurancesOfEachItemInAnyArray() {
 
 	private static void removeDuplicateItemsFromAnyArray() {
 		
-		//List<Integer> list3 = Arrays.asList(intArrayPrimitiveType); //CE
 		List<Byte> list1 = Arrays.asList(byteArrayWrapperType);
 		Set<Byte> set1 = new HashSet<>(list1);
 		System.out.println(set1);
@@ -185,13 +184,10 @@ private static void countNoOfOccurancesOfEachItemInAnyArray() {
 		Byte[] res2 = (Byte[]) Arrays.stream(byteArrayWrapperType).distinct().toArray();
 		System.out.println(res2);
 		
-		//List<Integer> list3 = Arrays.asList(shortArrayPrimitiveType); //CE
 		List<Short> list2 = Arrays.asList(shortArrayWrapperType);
 		Set<Short> set2 = new HashSet<>(list2);
 		System.out.println(set2);
 
-		
-		//List<Integer> list3 = Arrays.asList(intArrayPrimitiveType); //CE
 		List<Integer> list3 = Arrays.asList(intArrayWrapperType);
 		Set<Integer> set3 = new HashSet<>(list3);
 		System.out.println(set3);
@@ -208,7 +204,6 @@ private static void countNoOfOccurancesOfEachItemInAnyArray() {
 		List<Double> list6 = Arrays.asList(doubleArrayWrapperType);
 		Set<Double> set6 = new HashSet<>(list6);
 		System.out.println(set6);
-		
 		
 		List<String> list7 = Arrays.asList(stringArray);
 		Set<String> set7 = new HashSet<>(list7);
@@ -356,9 +351,7 @@ private static void countNoOfOccurancesOfEachItemInAnyArray() {
 	}
 
 	public static void sortAnyArray() {
-		
-		
-		
+	
 		
 		// ***************************************************** with both primitive and wrapper  type ********************************************************
 
@@ -603,7 +596,6 @@ private static void countNoOfOccurancesOfEachItemInAnyArray() {
 
 		Arrays.sort(stringArray, sortByLengthComparator);
 		
-		
 		Arrays.sort(stringArray);
 		//OR
 		Comparator<String> sortByNameCustomComparator = (String str1, String str2) -> str1.compareTo(str2);
@@ -638,8 +630,7 @@ private static void countNoOfOccurancesOfEachItemInAnyArray() {
 		Arrays.stream(stringArray).map(String::toUpperCase).filter(s -> s.startsWith("A")).forEach(System.out::println);
 		Arrays.stream(stringArray).map(String::toLowerCase).filter(s -> s.startsWith("p")).forEach(System.out::println);
 		Arrays.stream(stringArray).map(String::toLowerCase).filter(s -> s.length() == 5).forEach(System.out::println);
-		
-		
+	
 	}
 	
 	public static void namesStartingWithSpecificCharInStringList() {

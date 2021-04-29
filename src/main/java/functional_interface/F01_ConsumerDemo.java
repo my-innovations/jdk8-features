@@ -17,7 +17,7 @@ public class F01_ConsumerDemo {
 	public static void consumerDemo() {
 
 		// Ex-01
-		// it returns nothing, and accepts Wraper class as input.
+		// it returns nothing, and accepts Wrapper class as input.
 
 		// using accept method.
 		Consumer<String> lengthConsumer = (str) -> System.out.println(str.length());// 6
