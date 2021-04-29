@@ -16,15 +16,26 @@ import model.Employee;
 public class CollectionsDemo {
 
 	// some dummy data to operate on
-	private static int[] intArray = new int[] { 1, 34, 78, 90, 27, 45 };
-	private static Integer[] intArray2 = new Integer[] { 1, 34, 78, 90, 27, 45 };
-	private static char[] charArray = new char[] { 'a', 'm', 'y', 'u' };
-	private static float[] floatArray = new float[] { 1.5f, 34.8f, 78.2f, 90.0f, 27.78f, 45.31f };
-	private static long[] longArray = new long[] { 1, 34, 78, 90, 27, 45 };
-	private static double[] doubleArray = new double[] { 1, 34, 78, 90, 27, 45 };
-	private static String[] strArray = { "Punya", "Partha", "Aswini" };
+	private static int[] intArrayPrimitiveType = new int[] { 1, 34, 78, 90, 27, 45 };
+	private static Integer[] intArrayWraperType = new Integer[] { 1, 34, 78, 90, 27, 45 };
+	
+	private static float[] floatArrayPrimitiveType = new float[] { 1.5f, 34.8f, 78.2f, 90.0f, 27.78f, 45.31f };
+	private static float[] floatArrayWrapperType = new float[] { 1.5f, 34.8f, 78.2f, 90.0f, 27.78f, 45.31f };
+	
+	private static long[] longArrayPrimitiveType = new long[] { 1, 34, 78, 90, 27, 45 };
+	private static Long[] longArrayWrapperType = new Long[] { 1l, 34l, 78l, 90l, 27l, 45l };
+	
+	private static double[] doubleArrayPrimitive = new double[] { 1, 34, 78, 90, 27, 45 };
+	private static double[] doubleArrayWrapperType = new double[] { 1, 34, 78, 90, 27, 45 };
+	
+	private static char[] charArrayPrimitiveType = new char[] { 'a', 'm', 'y', 'u' };
+	private static Character[] charArrayWrapperType = new Character[] { 'a', 'm', 'y', 'u' };
+	
+	private static String[] strArray = { "Punya", "Partha sarathi", "Aswini kumar" };
 
-	private static List<Integer> intlist = Arrays.asList(1, 34, 78, 90, 27, 45);
+	//private static List<Byte> bytelist = Arrays.asList(1, 34, 78, 90, 27, 45); //CE
+	//private static List<Short> shortlist = Arrays.asList(1, 34, 78, 90, 27, 45); //CE
+	private static List<Integer> intlist = Arrays.asList(1, 34, 78, 90, 27, 45); 
 	private static List<Float> floatlist = Arrays.asList(1.5f, 34.8f, 78.2f, 90.0f, 27.78f, 45.31f);
 	private static List<Long> longlist = Arrays.asList(1l, 34l, 78l, 90l, 27l, 45l);
 	private static List<Double> doublelist = Arrays.asList(1d, 34d, 78d, 90d, 27d, 45d);
@@ -34,149 +45,217 @@ public class CollectionsDemo {
 
 	private static Map<Integer, String> map = new HashMap();
 
-	private static List<String> namesList = Arrays.asList("punya", "pankaj kumar", "aswini", "parthasarathi");
-	private static List<Employee> empList = Arrays.asList(new Employee(1, "Shifoo", "acc1", "IT", 25, 150000d),
-			new Employee(2, "Punya", "acc2", "IT", 40, 250000d));
+	private static List<String> strList = Arrays.asList("punya", "punyasmruti","pankaj kumar", "aswini k ssingh", "parthasarathi");
+	private static List<Employee> empList = Arrays.asList(new Employee(1, "Shifoo", "acc1", "IT", 25, 150000d),new Employee(2, "Punya", "acc2", "IT", 40, 250000d));
 
 	public static void main(String[] args) {
-
-		//sortArrayOfStringsByUsingJava7();
-		//sortArrayOfStringsByUsingJava8();
-
-		//sortListOfStringsByLengthUsingJava7();
-		//sortListOfStringsByLengthUsingJava8();
-
-		//sortListOfStringsUsingJava7();
-		//sortListOfStringsUsingJava7_2();
 		
-		//sortListOfStringsUsingJava8();
-		//sortListOfStringsByUsingJava8();
+		sortIntegers();
+		sortStrings();
+		sortStringsByLength();
+		countNoOfOccurancesOfEachItemInArrayOrList();
+		
 
+		//using DTO class
 		//sortEmpByIdUsingJava7(); 
 		//sortEmpByIdUsingJava8();
 		//sortListEmpNamesUsingJava7();
 		//sortEmpNamesUsingJava8();
 		//sortEmpBySalaryUsingJava7();
-		
-		sortEmpByAge();
-
+		//sortEmpByAge();
 		//convertEmpListToMap();
 		
-		countNoOfOccurancesOfAnItemInArray();
 
 	}// main
 	
+
+	public static void sortIntegers() {
+
+		Comparator<Integer> customComparator1 = new Comparator<Integer>() {
+			@Override
+			public int compare(Integer num1, Integer num2) {
+				return num1.compareTo(num2); // ascending
+				// return num2.compareTo(num1); // descending
+			}
+		};
+
+		Comparator<Integer> customComparator2 = (Integer num1, Integer num2) -> num1.compareTo(num2); // ascending
+		Comparator<Integer> customComparator3 = (Integer num1, Integer num2) -> num2.compareTo(num1); // descending
+
+		Arrays.sort(intArrayWraperType); // default sort
+		System.out.println(Arrays.toString(intArrayPrimitiveType));
+
+		Arrays.sort(intArrayWraperType, customComparator1);
+		System.out.println(Arrays.toString(intArrayPrimitiveType));
+
+		Arrays.sort(intArrayWraperType, customComparator2);
+		System.out.println(Arrays.toString(intArrayWraperType));
+
+		Arrays.sort(intArrayWraperType, customComparator3);
+		System.out.println(Arrays.toString(intArrayWraperType));
+
+		intlist.sort(customComparator1);
+		intlist.forEach((name) -> System.out.print(name + " "));
+
+		System.out.println();
+		intlist.sort(customComparator2);
+		System.out.print(intlist + " ");
+
+		System.out.println();
+		intlist.sort(customComparator3);
+		System.out.println(intlist);
+
+		Collections.sort(Arrays.asList(intArrayWraperType)); // default sort
+		System.out.println(Arrays.toString(intArrayWraperType));
+
+		Collections.sort(Arrays.asList(intArrayWraperType), customComparator1);
+		System.out.println(Arrays.toString(intArrayWraperType));
+
+		Collections.sort(Arrays.asList(intArrayWraperType), customComparator2);
+		System.out.println(Arrays.toString(intArrayWraperType));
+
+		Collections.sort(Arrays.asList(intArrayWraperType), customComparator3);
+		System.out.println(Arrays.toString(intArrayWraperType));
+
+	}
 	
-	public static void countNoOfOccurancesOfAnItemInArray() {
-		List<Integer> list = Arrays.asList(intArray2);
-		 Set<Integer> set = new HashSet<Integer>(list);
-	        for (Integer i : set)
-	            System.out.println(i + ": " + Collections.frequency(list, i));
-	}
+	public static void sortStrings() {
 
-	public static void sortArrayOfStringsByUsingJava7() {
+		System.out.println();
 		
-		Comparator<String> sortByLengthCustomComparator = new Comparator<String>() {
+		Comparator<String> customComparator1 = new Comparator<String>() {
 			@Override
 			public int compare(String str1, String str2) {
-				return str1.compareTo(str2);
-			}
-		};
-		Arrays.sort(strArray);
-		Arrays.sort(strArray, sortByLengthCustomComparator);
-	}
-
-	public static void sortArrayOfStringsByUsingJava8() {
-		Comparator<String> sortByNameCustomComparator = (String str1, String str2) -> str1.compareTo(str2);
-		Arrays.sort(strArray);
-		Arrays.sort(strArray, sortByNameCustomComparator);
-	}
-
-	public static void sortListOfStringsByLengthUsingJava7() {
-
-		Comparator<String> sortByLengthCustomComparator = new Comparator<String>() {
-			@Override
-			public int compare(String str1, String str2) {
-				return str1.length() - str2.length();
-				// return str1.compareTo(str2);
-			}
-		};
-		namesList.sort(sortByLengthCustomComparator);
-		namesList.forEach(System.out::println);
-		// OR
-		namesList.sort(Comparator.comparingInt(String::length));
-		namesList.forEach(System.out::println);
-		// OR
-		Collections.sort(namesList, Comparator.comparingInt(String::length));
-		namesList.forEach(System.out::println);
-	}
-
-	public static void sortListOfStringsByLengthUsingJava8() {
-
-		Comparator<String> sortByLengthCustomComparator = (s1, s2) -> s1.length() - s2.length();
-		// Comparator<String> sortByName = (String s1, String s2) -> s1.compareTo(s2); // sort by char
-		namesList.sort(sortByLengthCustomComparator);
-		namesList.forEach(System.out::println);
-		// OR
-		Collections.sort(namesList, sortByLengthCustomComparator);
-		namesList.forEach(System.out::println);
-
-	}
-
-	public static void sortListOfStringsUsingJava7() {
-
-		System.out.println("********  In ascending order :: ");
-
-		Comparator<String> customComparator = new Comparator<String>() {
-			@Override
-			public int compare(String str1, String str2) {
+				// return str2.compareTo(str1); // descending order
 				return str1.compareTo(str2); // ascending order
 			}
 		};
-		namesList.sort(customComparator);
-		namesList.forEach((n) -> System.out.println(n));
-		// OR
-		Collections.sort(namesList, customComparator);
-		namesList.forEach((name) -> System.out.println(name));
 
+		Comparator<String> customComparator2 = (String str1, String str2) -> str1.compareTo(str2); //ascending order
+		Comparator<String> customComparator3 = (String str1, String str2) -> str2.compareTo(str1);  //descending order
+		
+
+		Arrays.sort(strArray); //default sort
+		System.out.println(Arrays.toString(strArray));
+
+		Arrays.sort(strArray, customComparator1);
+		System.out.println(Arrays.toString(strArray));
+		
+		Arrays.sort(strArray, customComparator2);
+		System.out.println(Arrays.toString(strArray));
+		
+		Arrays.sort(strArray, customComparator3);
+		System.out.println(Arrays.toString(strArray));
+		
+		strList.sort(customComparator1);
+		strList.forEach((name) -> System.out.print(name +" "));
+		
+		System.out.println();
+		strList.sort(customComparator2);
+		System.out.print(strList +" ");
+		
+		System.out.println();
+		strList.sort(customComparator3);
+		System.out.println(strList);
+		
+		Collections.sort(Arrays.asList(strArray)); //default sort
+		System.out.println(Arrays.toString(strArray));
+		
+		Collections.sort(Arrays.asList(strArray), customComparator1);
+		System.out.println(Arrays.toString(strArray));
+		
+		Collections.sort(Arrays.asList(strArray), customComparator2);
+		System.out.println(Arrays.toString(strArray));
+
+		Collections.sort(Arrays.asList(strArray), customComparator3);
+		System.out.println(Arrays.toString(strArray));
+
+		Collections.sort(strList); // default sorting
+		strList.forEach((name) -> System.out.print(name+" "));
+
+		System.out.println();
+		Collections.sort(strList, customComparator1);
+		strList.forEach((name) -> System.out.print(name+" "));
+		
+		System.out.println();
+		Collections.sort(strList, customComparator2);
+		strList.forEach((name) -> System.out.print(name +" "));
+		
+		System.out.println();
+		Collections.sort(strList, customComparator3);
+		strList.forEach((name) -> System.out.print(name+" "));
 	}
 
-	public static void sortListOfStringsUsingJava7_2() {
+	
 
-		String[] strArray = { "Punya", "Partha", "Aswini" };
-
-		// way-01
-		// ex-01
-		Arrays.sort(strArray);
-		System.out.println(Arrays.toString(strArray));
-
-		// or
-		Collections.sort(Arrays.asList(strArray));
-		System.out.println(Arrays.toString(strArray));
-
-		// way-02
-		// ex-2
-		Comparator<String> strComparator = new Comparator<String>() {
+	private static void sortStringsByLength() {
+		
+		//jdk7
+		Comparator<String> sortByLengthComparator1 = new Comparator<String>() {
 			@Override
-			public int compare(String name1, String name2) {
-				// return name1.compareTo(name2);
-				return name2.compareTo(name1);
+			public int compare(String str1, String str2) {
+				return str1.length() - str2.length();
+				//return str2.length() - str1.length();
 			}
 		};
-		Arrays.sort(strArray, strComparator);
+		
+		Comparator<String> sortByLengthComparator2 = Comparator.comparingInt(String::length);
+		//Comparator<String> sortByLengthComparator2 = Comparator.comparingInt(String::length).reversed();
+		
+		//jdk8
+		Comparator<String> sortByLengthComparator3 = (s1, s2) -> s1.length() - s2.length();
+		//Comparator<String> sortByLengthComparator3 = (s1, s2) -> s2.length() - s1.length();
+		
+		
+		Arrays.sort(strArray, sortByLengthComparator1);
 		System.out.println(Arrays.toString(strArray));
-
-		Collections.sort(Arrays.asList(strArray), strComparator);
+		
+		Arrays.sort(strArray, sortByLengthComparator2);
 		System.out.println(Arrays.toString(strArray));
-
-	}
-
-	public static void sortListOfStringsUsingJava8() {
-		Comparator<String> sortByNameComparatorWithLambda = (String str1, String str2) -> str1.compareTo(str2);
-		namesList.sort(sortByNameComparatorWithLambda);
-		System.out.println(namesList);
+		
+		Arrays.sort(strArray, sortByLengthComparator3);
+		System.out.println(Arrays.toString(strArray));
+		
+		strList.sort(sortByLengthComparator1);
+		strList.forEach(System.out::println);
+		// OR
+		strList.sort(sortByLengthComparator2);
+		strList.forEach(System.out::println);
+		// OR
+		Collections.sort(strList, sortByLengthComparator2);
+		strList.forEach(System.out::println);
+		//OR
+		strList.sort(sortByLengthComparator2);
+		strList.forEach(System.out::println);
+		// OR
+		Collections.sort(strList, sortByLengthComparator3);
+		strList.forEach(System.out::println);
+		
 	}
 	
+private static void countNoOfOccurancesOfEachItemInArrayOrList() {
+		
+		//Integer array as input
+		List<Integer> intlist1 = Arrays.asList(intArrayWraperType);
+		Set<Integer> set1 = new HashSet<Integer>(intlist1);
+		for (Integer num : set1)
+			System.out.println(num + ": " + Collections.frequency(intlist1, num));
+
+		System.out.println();
+
+		//Integer list as input
+		Set<Integer> set = new HashSet<Integer>(intlist);
+		for (Integer num : set)
+			System.out.println(num + ": " + Collections.frequency(intlist, num));
+
+		System.out.println();
+
+		//string list as input
+		Set<String> set2 = new HashSet<>(strList);
+		for (String name : set2)
+			System.out.println(name + ": " + Collections.frequency(strList, name));
+	}
+
 	//**********************************************************************************************************
 	
 	public static void sortEmpByIdUsingJava7() {

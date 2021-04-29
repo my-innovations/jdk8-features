@@ -24,7 +24,7 @@ public class ArraysDemo {
 	private static Short[] shortArrayWrapperType = { 10, 5, -44, -99, 47, 198, -35 };
 
 	private static int[] intArrayPrimitiveType = { 10, 5, -44, -99, 47, 198, -35 };
-	private static Integer[] intArrayWrapperType = { 10, 5, -44, -99, 47, 198, -35 };
+	private static Integer[] intArrayWrapperType = { 10, 5, -44, -99, 47, 198, -35 ,5,10};
 
 	private static long[] longArrayPrimitiveType = { 10l, 5, -44l, -99, 47, 198, -35 };
 	private static Long[] longArrayWrapperType = { 10l, 5l, -44l, -99l, 47l, 198l, -35l };
@@ -41,21 +41,77 @@ public class ArraysDemo {
 	private static String[] strArray = { "punya", "Partha", "Aswini", "punya","Arabind" };
 
 	public static void main(String[] args) throws IOException {
-
-		convertAnyArrayToList();
+		
+		largestItemFromIntArray();
+		smallestItemFromIntArray();
+		
+		removeDuplicateItemsFromAnyArray();
+		
+		countNoOfOccurancesOfAnItemItemInAnyArray();
+		countNoOfOccurancesOfEachItemInAnyArray();
+		countNoOfOccurancesOfEachItemwithRangeInAnyArray();
+		
 		sortAnyArray();
 		parallelSortAnyArray();
-		removeDuplicateItemsFromAnyArray();
-		countNoOfOccurancesOfAnItemItemInArray();
-		countNoOfOccurancesOfEachItemInArray();
-		convertAnyArrayToStream();
-		convertStringToCharArray();
-		namesStartingWithSpecificCharInStringArray();
-		// sortContentOfFile();
 
+		convertStringToCharArray();
+		convertAnyArrayToList();
+		convertAnyArrayToSet();
+		convertAnyArrayToMapWithNoOfOccurances();
+		
+		namesStartingWithSpecificCharInStringArray();
+		sortContentOfFile();
+		
+		sortStringArrayByUsingJava7();
+		sortArrayOfStringsByUsingJava8();
+		
+		convertAnyArrayToStream();
+			
 	}
 	
-	public static void countNoOfOccurancesOfAnItemItemInArray() {
+	private static void largestItemFromIntArray() {
+	    int max = Arrays.stream(intArrayPrimitiveType).max().getAsInt();
+	    System.out.println(max);
+	}
+	
+	private static void smallestItemFromIntArray() {
+	    int min = Arrays.stream(intArrayPrimitiveType).min().getAsInt();
+	    System.out.println(min);
+	}
+	
+	
+	public static void sortStringArrayByUsingJava7() {
+
+		Arrays.sort(strArray);
+		// OR
+
+		Comparator<String> sortByLengthComparator = new Comparator<String>() {
+			@Override
+			public int compare(String str1, String str2) {
+				return str1.compareTo(str2);
+			}
+		};
+
+		Arrays.sort(strArray, sortByLengthComparator);
+	}
+
+	public static void sortArrayOfStringsByUsingJava8() {
+		
+		Arrays.sort(strArray);
+		//OR
+		Comparator<String> sortByNameCustomComparator = (String str1, String str2) -> str1.compareTo(str2);
+		Arrays.sort(strArray, sortByNameCustomComparator);
+	}
+	
+	private static void convertAnyArrayToMapWithNoOfOccurances() {
+		
+		List<Integer> list = Arrays.asList(intArrayWrapperType);
+		Map<Integer, Long> counts = list.stream().collect(Collectors.groupingBy(item -> item, Collectors.counting()));
+		System.out.println(counts);
+		
+	}
+
+	private static void countNoOfOccurancesOfAnItemItemInAnyArray() {
 		
 		//ex-01
 		List<Integer> list3 = Arrays.asList(intArrayWrapperType);
@@ -72,7 +128,7 @@ public class ArraysDemo {
 	}
 	
 	
-	public static void countNoOfOccurancesOfEachItemInArray() {
+	private static void countNoOfOccurancesOfEachItemInAnyArray() {
 		
 		// way-01
 		List<Integer> list = Arrays.asList(intArrayWrapperType);
@@ -83,12 +139,17 @@ public class ArraysDemo {
 		// way-02
 		Map<Integer, Long> counts = list.stream().collect(Collectors.groupingBy(e -> e, Collectors.counting()));
 		System.out.println(counts);
-		
-		
+	
+	}
+	
+	
+	private static void countNoOfOccurancesOfEachItemwithRangeInAnyArray() {
+		Map<Integer, Long> map = Arrays.stream(intArrayWrapperType).filter(item -> item >=10 && item <=50).collect(Collectors.groupingBy(item -> item, Collectors.counting()));
+		System.out.println(map);
 		
 	}
 
-	public static void removeDuplicateItemsFromAnyArray() {
+	private static void removeDuplicateItemsFromAnyArray() {
 		
 		//List<Integer> list3 = Arrays.asList(intArrayPrimitiveType); //CE
 		List<Byte> list1 = Arrays.asList(byteArrayWrapperType);
@@ -133,7 +194,7 @@ public class ArraysDemo {
 
 
 
-	public static void convertAnyArrayToStream() {
+	private static void convertAnyArrayToStream() {
 
 		// way-01
 		// Arrays.stream(byteArray).forEach(System.out::print);//CE
@@ -161,7 +222,7 @@ public class ArraysDemo {
 		Stream.of(doubleArrayPrimitiveType).forEachOrdered(System.out::print);
 	}
 
-	public static void convertAnyArrayToList() {
+	private static void convertAnyArrayToList() {
 
 		//List<byte> list001 = Arrays.asList(byteArrayWrapperType);//CE
 		List<Byte> list001 = Arrays.asList(byteArrayWrapperType);
@@ -219,6 +280,15 @@ public class ArraysDemo {
 		// converting string array to string list
 		List<String> list8 = Arrays.asList(strArray);
 		System.out.println(list8);
+	}
+	
+	
+	private static void convertAnyArrayToSet() {
+		
+		//List<Integer> list3 = Arrays.asList(intArrayPrimitiveType); //CE
+		List<Integer> list3 = Arrays.asList(intArrayWrapperType);
+		Set<Integer> set3 = new HashSet<>(list3);
+		System.out.println(set3);
 	}
 
 	public static void sortAnyArray() {
