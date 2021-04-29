@@ -4,9 +4,14 @@ import java.util.Arrays;
 import java.util.List;
 
 public class PersonRepository {
-
-	public static List<Person> getAllPesons(){
 	
+	//returning single person record
+	public static Person getPerson() {
+		return new Person("punyasmruti","nayak",1000D,"male",100,Arrays.asList("reading","music"));
+	}
+
+	//returns list
+	public static List<Person> getAllPesons(){
 		return Arrays.asList(
 				new Person("punyasmruti","nayak",1000D,"male",100,Arrays.asList("reading","music")),
 				new Person("omkar","nayak",2000D,"male",50,Arrays.asList("cartoon ")),
@@ -14,9 +19,4 @@ public class PersonRepository {
 				new Person("Niraj","pandey",4000D,"male",120,Arrays.asList("caroom","music"))
 				);
 	}
-	
-	public static Person getPerson() {
-		return new Person("punyasmruti","nayak",1000D,"male",100,Arrays.asList("reading","music"));
-	}
-
 }

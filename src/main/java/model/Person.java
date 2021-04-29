@@ -13,6 +13,17 @@ public class Person {
 
 	public Person() {
 	}
+	
+	public Person(String firstName) {
+		super();
+		this.firstName = firstName;
+	}
+	
+	public Person(String firstName, String lastName) {
+		super();
+		this.firstName = firstName;
+		this.lastName = lastName;
+	}
 
 	public Person(String firstName, String lastName, Double sal, String gender, Integer height, List<String> hobbies) {
 		super();

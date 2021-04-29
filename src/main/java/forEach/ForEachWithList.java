@@ -1,0 +1,162 @@
+package forEach;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Iterator;
+import java.util.List;
+import java.util.function.Consumer;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+
+import model.Employee;
+
+public class ForEachWithList {
+
+	// dummy data
+	private static List<Employee> empList = Arrays.asList(new Employee(1, "Shifoo", "acc1", "IT", 25, 150000d),	new Employee(1, "Shifoo", "acc1", "IT", 25, 50000d), new Employee(1, "Shifoo", "acc1", "IT", 25, 450000d));
+	private static List<Object[]> splitUpNames = Arrays.asList("John Woo", "Jeff Dean", "Josh Bloch", "Josh Long").stream().map(name -> name.split(" ")).collect(Collectors.toList());
+	private static List<String> alphabets = Arrays.asList("A", "B", "C", "D");
+	private static List<String> strList = Arrays.asList("A", "B", "C", "D");
+	private static List<String> names = Arrays.asList("Maggie", "Michonne", "Rick", "Governor");
+	private static List<String> names3 = Arrays.asList("Melisandre", "Sansa", "Jon", "Daenerys", "Joffery", "Sansa");
+	private static List<Integer> numList = Arrays.asList(1, 2, 3, 4, 5, 6);
+
+	public static void main(String[] args) {
+		iterateListUsingForLoop();
+		findUniqueNamesFromList();
+	}
+
+	public static void iterateListUsingForLoop() {
+
+		// ex-01
+		System.out.println("\n traversing list using for loop");
+		for (int j = 0; j < empList.size(); j++) {
+			System.out.println(empList.get(j));
+		}
+		// OR
+		for (Employee i : empList) {
+			System.out.print(i + " ");
+		}
+		// or
+		empList.forEach(emp -> System.out.println(emp));
+		empList.forEach(System.out::println);
+
+		// ex-2
+		List<String> alphabets = Arrays.asList("A", "B", "C", "D");
+		System.out.println("Printing with earlier JDK 1.5 for loop:");
+		for (String str : alphabets) {
+			System.out.print(str + "\t");
+		}
+
+		alphabets.forEach(System.out::println);
+		alphabets.forEach((String str) -> System.out.print(str + "\t"));
+
+		System.out.println("\nPrinting with latest forEach loop introduced with JDK 1.8 with lambda usage:");
+		alphabets.forEach(str -> {
+			System.out.print(str + "\t");
+		});
+
+		// Ex-
+		empList.forEach(new Consumer<Employee>() {
+			@Override
+			public void accept(Employee item) {
+				System.out.print(item + " ");
+			}
+		});
+
+		// EX-
+		// way-02- traversing with Consumer interface implementation
+		System.out.println("\nConsumer impl Value::");
+		MyCustomConsumer consumer = new MyCustomConsumer();
+		empList.forEach(consumer);
+
+	}
+
+	public static void iterateListUsingIterator() {
+		System.out.println("\ntraversing list using Iterator");
+		Iterator<Employee> it = empList.iterator();
+		while (it.hasNext()) {
+			Employee i = it.next();
+			System.out.println(i);
+		}
+	}
+
+	public void splitdata() {
+		splitUpNames.forEach(name -> System.out.println(name[0] + "-" + name[1]));
+	}
+
+	public static void traversingListusingLambda() {
+
+		// using lambda expression of jdk8
+		System.out.println("\ntraversing list using lambda");
+		empList.forEach(item -> {
+			// you can implement some business logic here..
+			System.out.print(item + " ");
+		});
+
+		System.out.println("Printing List with forEach");
+		empList.forEach(employee -> System.out.println(employee));
+
+		System.out.println("\nPrinting List after Filtering");
+		empList.stream().filter(employee -> employee.getSalary() > 100000).forEach(System.out::println);
+		System.out.println(empList);
+
+		empList.stream().filter(employee -> employee.getSalary() > 100000).collect(Collectors.toList());
+		System.out.println(empList);
+
+		// Ex-02
+		List<String> strList = Arrays.asList("A", "B", "C", "D");
+		// filtering names that starts with M
+		strList.stream().filter(f -> f.startsWith("M")).forEach(System.out::println); // displaying the stream using
+																						// forEach
+
+		// EX-03
+		names.stream().filter(f -> f.startsWith("M")).parallel().forEach(n -> System.out.println(n));
+
+		// ex-04
+		names.stream().filter(f -> f.startsWith("M")).parallel().forEachOrdered(n -> System.out.println(n));
+
+		// ex-05
+		// Creating the stream of all names
+		Stream<String> allNames = names.stream();
+		// Creating another stream by filtering long names using filter()
+		Stream<String> longNames = allNames.filter(str -> str.length() > 6);
+		// displaying the long names
+		longNames.forEach(str -> System.out.print(str + " "));
+
+		// Stream filter() and collect()
+		List<String> longnames = names.stream() // converting the list to stream
+				.filter(str -> str.length() > 6) // filter the stream to create a new stream
+				.collect(Collectors.toList()); // collect the final stream and convert it to a List
+
+		longnames.forEach(System.out::println);
+
+		// ex-
+		List<String> longnames3 = names3.stream().filter(str -> str.length() > 6 && str.length() < 8) // Multiple
+																										// conditions
+				.collect(Collectors.toList());
+
+		longnames3.forEach(System.out::println);
+
+		// EX-
+		List<Integer> squares = numList.stream().map(n -> n * n).collect(Collectors.toList());
+		System.out.println(squares);
+
+	}
+
+	public static void findUniqueNamesFromList() {
+		// EX-way-01
+		List<String> list = new ArrayList<>();
+		for (String name : names3) {
+			if (!list.contains(name)) {
+				list.add(name);
+			}
+		}
+		System.out.println(list);
+
+		// EX-way-02
+		List<String> uniqueNames = names3.stream().distinct().collect(Collectors.toList());
+		System.out.println(uniqueNames);
+
+	}
+}

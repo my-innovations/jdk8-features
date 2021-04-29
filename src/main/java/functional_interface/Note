@@ -1,5 +1,15 @@
 
+Functional interface can have default and static methods.
 
-Consumer is a buildt in functional interface. it returns nothing
-BiConsumer is a buildt in functional interface. it returns nothing
-Predicate is a buildt in functional interface.it returns either true/false
+Runnable  - public abstract void run(); - SAM
+Callable - sinnce jdk1.5
+Comparable - since jdk1.2
+Function<Object,Object> - it takes single input and return single output. it has apply,andThen method.
+BiFunction - - it takes two input and return single output. it has apply method.
+Consumer - is a buildt in functional interface. it accepts one input param and it returns nothing and just consumes the param, it is having accept, andThen methods.
+BiConsumer - is a buildt in functional interface.  it accepts two input params. it returns nothing, it is having accept, andThen methods.
+Predicate - is a buildt in functional interface.It accepts one param . it always boolean that is returns either true/false, is is having test() and default and static methods.
+BiPredicate - It accepts two param .
+UnaryOperator -
+BinaryOperator -
+Supplier - it will not take any input data and return some data.

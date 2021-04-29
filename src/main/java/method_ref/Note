@@ -1,0 +1,2 @@
+1. one method can refer to another non static method
+2. one method can refer to another static method

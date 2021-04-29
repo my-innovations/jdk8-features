@@ -9,7 +9,7 @@ import java.util.concurrent.Callable;
 import java.util.function.IntBinaryOperator;
 import java.util.function.Predicate;
 
-import model.Person2;
+import model.Person;
 
 //Accessing Local and Class Variables in Lambda Expression 
 //Java Lambda Expression Example: Creating Thread
@@ -30,10 +30,9 @@ interface Sayable {
 
 //Java Lambda Expression with no parameter
 @FunctionalInterface
-interface MyFunctionalInterface5 {
+interface MyFunctionalInterface01 {
 	// A method with no parameter
-	public String sayHello();
-
+	public void sayHello();
 }
 
 /* This is lambdaExample */
@@ -85,7 +84,7 @@ public class Lambda_Expression_demo {
 	
 	final static String salutation = "Hello! ";
 
-	// instance var
+	// instance variable
 	public static String wildPerson2 = "Lion";
 	
 	final Runnable r1 = () -> out.println(this);
@@ -183,12 +182,11 @@ public class Lambda_Expression_demo {
 
 		// ########################################################################
 		// Before Soorting
-		Person2[] personArr = { new Person2("Lion"), new Person2("Crocodile"), new Person2("Tiger"),
-				new Person2("Elephant") };
+		Person[] personArr = { new Person("Lion"), new Person("Crocodile"), new Person("Tiger"),new Person("Elephant") };
 		System.out.println("Before Sort: " + Arrays.toString(personArr));
 
 		// After sorting
-		Arrays.sort(personArr, Person2::animalCompare);
+		Arrays.sort(personArr);
 		System.out.println("After Sort: " + Arrays.toString(personArr));
 
 		// ########################################################################
@@ -215,10 +213,12 @@ public class Lambda_Expression_demo {
 
 		// ########################################################################
 		// lambda expression
-		MyFunctionalInterface5 msg = () -> {
-			return "Hello";
+		//overriding the method of functional interface using lambda(without method name).
+		MyFunctionalInterface01 msg = () -> {
+			System.out.println("Hello");
 		};
-		System.out.println(msg.sayHello());
+		
+		msg.sayHello();
 
 		// ########################################################################
 		// Lambda expression with single parameter.

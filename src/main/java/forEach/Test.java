@@ -1,18 +1,20 @@
 package forEach;
 
-import java.util.Arrays;
-import java.util.List;
-import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 public class Test {
 
 	public static void main(String[] args) {
+		
+		int res=0;
+		for(int i=0;i<=50;i++) {
+			res +=i;
+		}
+		System.out.println(res);
 
-		List<Object[]> splitUpNames = Arrays.asList("John Woo", "Jeff Dean", "Josh Bloch", "Josh Long").stream()
-				.map(name -> name.split(" ")).collect(Collectors.toList());
-
-		splitUpNames.forEach(name -> System.out.println(name[0] + "-" + name[1]));
-
+		//using jdk8 - summation
+		int total = IntStream.rangeClosed(0,50).map(Integer::new).sum();
+		System.out.println(total);
 	}
 
 }
