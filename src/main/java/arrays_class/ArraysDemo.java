@@ -12,6 +12,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
+import java.util.stream.DoubleStream;
+import java.util.stream.IntStream;
+import java.util.stream.LongStream;
 import java.util.stream.Stream;
 
 public class ArraysDemo {
@@ -43,6 +46,7 @@ public class ArraysDemo {
 
 	public static void main(String[] args) throws IOException {
 		
+		
 		largestItemFromIntArray();
 		smallestItemFromIntArray();
 		
@@ -72,11 +76,13 @@ public class ArraysDemo {
 	
 	private static void largestItemFromIntArray() {
 	    int max = Arrays.stream(intArrayPrimitiveType).max().getAsInt();
+		//int max = Arrays.stream(intArrayWrapperType).max().getAsInt(); //CE
 	    System.out.println(max);
 	}
 	
 	private static void smallestItemFromIntArray() {
 	    int min = Arrays.stream(intArrayPrimitiveType).min().getAsInt();
+	    // int min = Arrays.stream(intArrayWrapperType).min().getAsInt(); //CE
 	    System.out.println(min);
 	}
 	
@@ -196,42 +202,80 @@ public class ArraysDemo {
 
 
 	private static void convertAnyArrayToStream() {
-
-		// way-01
-		// Arrays.stream(byteArray).forEach(System.out::print);//CE
-		// Arrays.stream(shortArray).forEach(System.out::print);//CE
-		Arrays.stream(intArrayPrimitiveType).forEach(System.out::print);
-		Arrays.stream(longArrayPrimitiveType).forEach(System.out::print);
-		//Arrays.stream(floatArray1).forEach(System.out::print);//CE
-		Arrays.stream(doubleArrayPrimitiveType).forEach(System.out::print);
-
-		// way-02
-		Stream.of(byteArrayPrimitiveType).forEach(System.out::print);
-		Stream.of(shortArrayPrimitiveType).forEach(System.out::print);
-		Stream.of(intArrayPrimitiveType).forEach(System.out::print);
-		//Stream<Integer> stream1 = Stream.of(intArray1); //CE
-		Stream<Integer> stream1 = Stream.of(intArrayWrapperType);
+		
+		Stream<byte[]> stream01 = Stream.of(byteArrayPrimitiveType);
+		stream01.forEach(System.out::println);
+		
+		Stream<Byte> stream02 = Stream.of(byteArrayWrapperType);
+		stream02.forEach(System.out::println);
+	
+		Stream<short[]> stream03 = Stream.of(shortArrayPrimitiveType);
+		stream03.forEach(System.out::println);
+		
+		Stream<Short> stream04 = Stream.of(shortArrayWrapperType);
+		stream04.forEach(System.out::println);
+		
+		
+		Stream<int[]> stream1 = Stream.of(intArrayPrimitiveType);
 		stream1.forEach(System.out::println);
+		
+		Stream<Integer> stream3 = Stream.of(intArrayWrapperType);
+		stream3.forEach(System.out::println);
+				
 
-
-		// way-03
-		Stream.of(byteArrayPrimitiveType).forEachOrdered(System.out::print);
-		Stream.of(shortArrayPrimitiveType).forEachOrdered(System.out::print);
-		Stream.of(intArrayPrimitiveType).forEachOrdered(System.out::print);
+		Stream.of(byteArrayPrimitiveType).forEach(System.out::print);
+		Stream.of(byteArrayWrapperType).forEachOrdered(System.out::print);
+		
+		Stream.of(shortArrayPrimitiveType).forEach(System.out::print);
+		Stream.of(shortArrayWrapperType).forEachOrdered(System.out::print);
+		
+		Stream.of(intArrayPrimitiveType).forEach(System.out::print);
+		Stream.of(intArrayWrapperType).forEachOrdered(System.out::print);
+		
 		Stream.of(longArrayPrimitiveType).forEachOrdered(System.out::print);
+		Stream.of(longArrayWrapperType).forEachOrdered(System.out::print);
+		
 		Stream.of(floatArrayPrimitiveType).forEachOrdered(System.out::print);
+		Stream.of(floatArrayWrapperType).forEachOrdered(System.out::print);
+		
 		Stream.of(doubleArrayPrimitiveType).forEachOrdered(System.out::print);
+		Stream.of(doubleArrayWrapperType).forEachOrdered(System.out::print);
+
+		// Arrays.stream(byteArrayPrimitiveType).forEach(System.out::print);//CE
+		
+		// Arrays.stream(shortArrayPrimitiveType).forEach(System.out::print);//CE
+		
+		Arrays.stream(intArrayPrimitiveType).forEach(System.out::print);
+		//Arrays.stream(intArrayPrimitiveType,2,3).forEach(System.out::print);
+		IntStream s = Arrays.stream(intArrayPrimitiveType);
+		s.forEach(System.out::println);
+		//s.forEachOrdered(System.out::println);
+		
+		Arrays.stream(longArrayPrimitiveType).forEach(System.out::print);
+		//Arrays.stream(longArrayPrimitiveType,2,2).forEach(System.out::print);
+		
+		// Arrays.stream(floatArrayPrimitiveType).forEach(System.out::print);//CE
+		
+		LongStream s2 = Arrays.stream(longArrayPrimitiveType);
+		s2.forEach(System.out::println);
+		
+		Arrays.stream(doubleArrayPrimitiveType).forEach(System.out::print);
+		//Arrays.stream(doubleArrayPrimitiveType,3,2).forEach(System.out::print);
+		
+		DoubleStream s3 = Arrays.stream(doubleArrayPrimitiveType);
+		s3.forEach(System.out::println);
+
 	}
 
 	private static void convertAnyArrayToList() {
 
 		//List<byte> list001 = Arrays.asList(byteArrayWrapperType);//CE
 		List<Byte> list001 = Arrays.asList(byteArrayWrapperType);
-		System.out.println("byte array=" + list001);
+		System.out.println("byte array=" + list001.toString());
 
 		//List<short> list002 = Arrays.asList(shortArrayWrapperType); //CE
 		List<Short> list002 = Arrays.asList(shortArrayWrapperType);
-		System.out.println("short array=" + list002);
+		System.out.println("short array=" + list002.toString());
 
 		// way-01
 		List<Integer> list01 = new ArrayList<>();
@@ -286,10 +330,10 @@ public class ArraysDemo {
 	
 	private static void convertAnyArrayToSet() {
 		
-		//List<Integer> list3 = Arrays.asList(intArrayPrimitiveType); //CE
-		List<Integer> list3 = Arrays.asList(intArrayWrapperType);
-		Set<Integer> set3 = new HashSet<>(list3);
-		System.out.println(set3);
+		//List<Integer> list = Arrays.asList(intArrayPrimitiveType); //CE
+		List<Integer> list = Arrays.asList(intArrayWrapperType);
+		Set<Integer> set = new HashSet<>(list);
+		System.out.println(set);
 	}
 
 	public static void sortAnyArray() {
@@ -343,7 +387,6 @@ public class ArraysDemo {
 		// ***************************************************** with wrapper type only   ********************************************************
 
 		// OR
-		// using custom comparator.
 		Comparator<Byte> byteComparator = new Comparator<Byte>() {
 			@Override
 			public int compare(Byte i1, Byte i2) {
