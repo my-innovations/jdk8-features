@@ -15,6 +15,7 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class ArraysDemo {
+	
 
 	// dummy data
 	private static byte[] byteArrayPrimitiveType = { 10, 5, -44, -99, 47, 19, -35 };

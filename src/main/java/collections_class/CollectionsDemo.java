@@ -14,6 +14,7 @@ import java.util.stream.Collectors;
 import model.Employee;
 
 public class CollectionsDemo {
+	
 
 	// some dummy data to operate on
 	private static int[] intArrayPrimitiveType = new int[] { 1, 34, 78, 90, 27, 45 };
