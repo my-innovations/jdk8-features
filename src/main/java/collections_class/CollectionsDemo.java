@@ -17,6 +17,7 @@ public class CollectionsDemo {
 
 	// some dummy data to operate on
 	private static int[] intArray = new int[] { 1, 34, 78, 90, 27, 45 };
+	private static Integer[] intArray2 = new Integer[] { 1, 34, 78, 90, 27, 45 };
 	private static char[] charArray = new char[] { 'a', 'm', 'y', 'u' };
 	private static float[] floatArray = new float[] { 1.5f, 34.8f, 78.2f, 90.0f, 27.78f, 45.31f };
 	private static long[] longArray = new long[] { 1, 34, 78, 90, 27, 45 };
@@ -60,8 +61,18 @@ public class CollectionsDemo {
 		sortEmpByAge();
 
 		//convertEmpListToMap();
+		
+		countNoOfOccurancesOfAnItemInArray();
 
 	}// main
+	
+	
+	public static void countNoOfOccurancesOfAnItemInArray() {
+		List<Integer> list = Arrays.asList(intArray2);
+		 Set<Integer> set = new HashSet<Integer>(list);
+	        for (Integer i : set)
+	            System.out.println(i + ": " + Collections.frequency(list, i));
+	}
 
 	public static void sortArrayOfStringsByUsingJava7() {
 		

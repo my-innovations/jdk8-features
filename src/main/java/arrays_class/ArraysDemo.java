@@ -9,6 +9,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -45,11 +46,46 @@ public class ArraysDemo {
 		sortAnyArray();
 		parallelSortAnyArray();
 		removeDuplicateItemsFromAnyArray();
+		countNoOfOccurancesOfAnItemItemInArray();
+		countNoOfOccurancesOfEachItemInArray();
 		convertAnyArrayToStream();
 		convertStringToCharArray();
 		namesStartingWithSpecificCharInStringArray();
 		// sortContentOfFile();
 
+	}
+	
+	public static void countNoOfOccurancesOfAnItemItemInArray() {
+		
+		//ex-01
+		List<Integer> list3 = Arrays.asList(intArrayWrapperType);
+		long count = list3.stream().filter(item -> 11 == item).count();
+		System.out.println(count);
+		
+		//ex-02
+		List<String> list = Arrays.asList(strArray);
+		count = list.stream().filter(item -> "punya".equalsIgnoreCase(item)).count();
+		System.out.println(count);
+		
+		//count the no items starts with A.
+		count = Arrays.stream(strArray).filter(item -> item.startsWith("A")).count();
+	}
+	
+	
+	public static void countNoOfOccurancesOfEachItemInArray() {
+		
+		// way-01
+		List<Integer> list = Arrays.asList(intArrayWrapperType);
+		Set<Integer> set = new HashSet<Integer>(list);
+		for (Integer item : set)
+			System.out.println(item + ": " + Collections.frequency(list, item));
+
+		// way-02
+		Map<Integer, Long> counts = list.stream().collect(Collectors.groupingBy(e -> e, Collectors.counting()));
+		System.out.println(counts);
+		
+		
+		
 	}
 
 	public static void removeDuplicateItemsFromAnyArray() {
@@ -187,7 +223,7 @@ public class ArraysDemo {
 
 	public static void sortAnyArray() {
 
-		// ***************************************************** with primitive and wrapper  type ********************************************************
+		// ***************************************************** with both primitive and wrapper  type ********************************************************
 
 		// way-01 , sorting int array in ascending order
 
@@ -365,8 +401,9 @@ public class ArraysDemo {
 	}
 
 	public static void namesStartingWithSpecificCharInStringArray() {
-		//Arrays.stream(strArray).filter(s -> s.startsWith("A")).sorted().forEach(System.out::println);
-		Arrays.stream(strArray).map(String::toLowerCase).filter(s -> s.startsWith("A")).forEach(System.out::println);
+		Arrays.stream(strArray).filter(s -> s.startsWith("A")).sorted().forEach(System.out::println);
+		Arrays.stream(strArray).map(String::toUpperCase).filter(s -> s.startsWith("A")).forEach(System.out::println);
+		Arrays.stream(strArray).map(String::toLowerCase).filter(s -> s.startsWith("p")).forEach(System.out::println);
 	}
 
 	public static void convertStringToCharArray() {
