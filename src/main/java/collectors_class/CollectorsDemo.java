@@ -32,9 +32,15 @@ public class CollectorsDemo {
 			new Student(55, "Maggie", 18));
 
 	public static void main(String[] args) {
-
+		
 		sumOfAllItemsOfDoubleArray();
 		findNoOfOccurancesOfItemsInArray();
+		gatherAllProductPricesInList();
+		sumOfAllprices();
+		gatherProductIdWithName();
+		gatherProductNameWithPrice();
+		countTotalNoOfProducts();
+		allStudNames();
 
 	}
 
@@ -45,14 +51,13 @@ public class CollectorsDemo {
 	}
 
 	public static void findNoOfOccurancesOfItemsInArray() {
-		Map<String, Long> map = namesList.stream()
-				.collect(Collectors.groupingBy(Function.identity(), Collectors.counting()));
+		Map<String, Long> map = namesList.stream().collect(Collectors.groupingBy(Function.identity(), Collectors.counting()));
 		System.out.println(map);
 	}
 
 	public static void gatherAllProductPricesInList() {
 
-		// Fetching data as a List
+		// gather all the products prices to list
 		List<Float> productPriceList = productsList.stream().map(product -> product.price).collect(Collectors.toList());
 		System.out.println(productPriceList); // [25000.0, 30000.0, 90000.0, 28000.0, 28000.0]
 
@@ -67,13 +72,13 @@ public class CollectorsDemo {
 
 		// sum of all ids
 		int sumId = productsList.stream().collect(Collectors.summingInt(product -> product.id));
-		System.out.println("Sum of id's: " + sumId);
+		System.out.println("Sum of all id's: " + sumId);
 
-		// summing the prices
+		// summ of all the prices
 		Double sumPrices = productsList.stream().collect(Collectors.summingDouble(product -> product.price));
-		System.out.println("Sum of prices: " + sumPrices); // Sum of prices: 201000.0
+		System.out.println("Sum of all prices: " + sumPrices); // Sum of prices: 201000.0
 
-		// Getting Product Average Price
+		// get average Price
 		Double average = productsList.stream().collect(Collectors.averagingDouble(product -> product.price));
 		System.out.println("Average price is: " + average);
 
@@ -81,24 +86,17 @@ public class CollectorsDemo {
 
 	public static void gatherProductIdWithName() {
 
-		// converting list to map
-		// key = id, value - websites
-		Map<Integer, String> result1 = productsList.stream()
-				.collect(Collectors.toMap(Product::getId, Product::getName));
+		Map<Integer, String> result1 = productsList.stream().collect(Collectors.toMap(Product::getId, Product::getName));
 		System.out.println("After converting list map  : " + result1);
 
 	}
 
 	public static void gatherProductNameWithPrice() {
-		Map<String, Float> result01 = productsList.stream()
-				.collect(Collectors.toMap(Product::getName, Product::getPrice));
+		Map<String, Float> result01 = productsList.stream().collect(Collectors.toMap(Product::getName, Product::getPrice));
 		System.out.println("After converting list map  : " + result01);
 
 		// #################### converting list to map ####################
-		// Same with result1, just different syntax
-		// key = prod name, value = prod price
-		Map<String, Float> productNamePriceMap = productsList.stream()
-				.collect(Collectors.toMap(product -> product.getName(), product -> product.getPrice()));
+		Map<String, Float> productNamePriceMap = productsList.stream().collect(Collectors.toMap(product -> product.getName(), product -> product.getPrice()));
 		System.out.println("After converting list map  : " + productNamePriceMap);
 
 		// sort by keys, a,b,c..., and return a new LinkedHashMap
@@ -121,28 +119,27 @@ public class CollectorsDemo {
 
 		// Counting Elements
 		Long noOfElements = productsList.stream().collect(Collectors.counting());
-		System.out.println("Total elements : " + noOfElements);
+		System.out.println("Total no of products : " + noOfElements);
 
 	}
 
 	public static void allStudNames() {
 
 		// gathering all student where id > 22
-		Set<Student> students = studenstlist.stream().filter(stud -> stud.id > 22).collect(Collectors.toSet());
+		List<Student> students = studenstlist.stream().filter(stud -> stud.id > 22).collect(Collectors.toList());
 		students.forEach(System.out::println);
-
-		// gathering all stud names
-		List<String> namesList = studenstlist.stream().map(stud -> stud.name).collect(Collectors.toList());
-		namesList.forEach(System.out::println);
 
 		// Fetching student data as a Set
 		Set<Student> students2 = studenstlist.stream().filter(stud -> stud.id > 22).collect(Collectors.toSet());
 		students2.forEach(System.out::println);
+
+		// gathering all stud names
+		List<String> namesList = studenstlist.stream().map(stud -> stud.name).collect(Collectors.toList());
+		namesList.forEach(System.out::println);
 
 		// Getting the average age of the students.
 		Double avgAge = studenstlist.stream().collect(Collectors.averagingInt(student -> student.age));
 		System.out.println("Average Age of Students is: " + avgAge);
 
 	}
-
 }
