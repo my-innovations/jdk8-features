@@ -1,4 +1,4 @@
-package arrays_class;
+package stream_api;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -18,7 +18,7 @@ import java.util.stream.IntStream;
 import java.util.stream.LongStream;
 import java.util.stream.Stream;
 
-public class ArraysDemo {
+public class ArraysWithStraemDemo {
 	
 	// dummy data
 	private static byte[] byteArrayPrimitiveType = { 10, 5, -44, -99, 47, 19, -35 };
@@ -47,16 +47,18 @@ public class ArraysDemo {
 
 	public static void main(String[] args) throws IOException {
 		
-		//convertAnyArrayToStream();
+		convertAnyArrayToStream();
 		
-		largest_smallest_sum_avg_From_any_primitive_Array();
+		find_largest_smallest_sum_avg_From_any_primitive_Array();
 		
-		/*largest_smallest_Item_From_any_wrapper_Array();
+		find_largest_smallest_Item_From_any_wrapper_Array();
 		
 		removeDuplicateItemsFromAnyArray();
 		
 		countNoOfOccurancesOfPerticularItemInAnyArray();
+		
 		countNoOfOccurancesOfEachItemInAnyArray();
+		
 		countNoOfOccurancesOfEachItemwithRangeInAnyArray();
 		
 		sortAnyArray();
@@ -69,11 +71,11 @@ public class ArraysDemo {
 		
 		namesStartingWithSpecificCharInStringArray();
 		namesStartingWithSpecificCharInStringList();
-		sortContentOfFile();*/
+		sortContentOfFile();
 		
 	}
 	
-	private static void largest_smallest_sum_avg_From_any_primitive_Array() {
+	private static void find_largest_smallest_sum_avg_From_any_primitive_Array() {
 		
 	    int max1 = Arrays.stream(intArrayPrimitiveType).max().getAsInt();
 		//int max = Arrays.stream(intArrayWrapperType).max().getAsInt(); //CE
@@ -89,6 +91,9 @@ public class ArraysDemo {
 	    OptionalDouble avg = Arrays.stream(intArrayPrimitiveType).average();
 	    System.out.println("avg="+avg.getAsDouble());
 	    
+	    int intRes = Arrays.stream(intArrayPrimitiveType).sum();
+	    System.out.println(intRes);
+	    
 	    
 	    //  ******************
 	    
@@ -99,6 +104,8 @@ public class ArraysDemo {
 	    long min2 = Arrays.stream(longArrayPrimitiveType).min().getAsLong();
 	    // long min2 = Arrays.stream(longArrayWrapperType).min().getAsLong(); //CE
 	    System.out.println(min2);
+	    
+	//  ******************
 	    
 	    double max3 = Arrays.stream(doubleArrayPrimitiveType).max().getAsDouble();
 		//double max3 = Arrays.stream(doubleArrayWrapperType).max().getAsDouble(); //CE
@@ -111,7 +118,7 @@ public class ArraysDemo {
 	    
 	}
 	
-	private static void largest_smallest_Item_From_any_wrapper_Array() {
+	private static void find_largest_smallest_Item_From_any_wrapper_Array() {
 		
 		Comparator<Byte> byteComparator = (Byte num1, Byte num2) -> num1.compareTo(num2); // ascending
 		int max1 = Arrays.stream(byteArrayWrapperType).max(byteComparator).get();
@@ -177,8 +184,10 @@ private static void countNoOfOccurancesOfEachItemInAnyArray() {
 		count = list.stream().filter(item -> "punya".equalsIgnoreCase(item)).count();
 		System.out.println(count);
 		
+		//ex-03
 		//count the no items starts with A.
 		count = Arrays.stream(stringArray).filter(item -> item.startsWith("A")).count();
+		System.out.println(count);
 	}
 	
 	private static void countNoOfOccurancesOfEachItemwithRangeInAnyArray() {
@@ -193,9 +202,18 @@ private static void countNoOfOccurancesOfEachItemInAnyArray() {
 		Set<Byte> set1 = new HashSet<>(list1);
 		System.out.println(set1);
 		
-		//Byte[] res1 = (Byte[]) Arrays.stream(byteArrayPrimitiveType).distinct().toArray(); //CE
+		Byte[] byteArrayWrapperType2 = (Byte[]) list1.stream().distinct().toArray();
+		for(Byte b: byteArrayWrapperType2) {
+			System.out.print(b+" ");
+		}
+		
+		//byte[] res1 =  Arrays.stream(byteArrayPrimitiveType).distinct().toArray(); //CE
 		Byte[] res2 = (Byte[]) Arrays.stream(byteArrayWrapperType).distinct().toArray();
 		System.out.println(res2);
+		
+		List<Byte> res3 =  Arrays.stream(byteArrayWrapperType).distinct().collect(Collectors.toList());
+		System.out.println(res3);
+		
 		
 		List<Short> list2 = Arrays.asList(shortArrayWrapperType);
 		Set<Short> set2 = new HashSet<>(list2);
@@ -612,8 +630,6 @@ private static void countNoOfOccurancesOfEachItemInAnyArray() {
 
 		Arrays.sort(stringArray, sortByLengthComparator);
 		
-		
-
 	}
 
 	public static void parallelSortAnyArray() {

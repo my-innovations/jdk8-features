@@ -6,6 +6,7 @@ import java.util.StringJoiner;
 import java.util.stream.Collectors;
 
 public class StringJoiner_demo {
+	
 	public static void main(String[] args) {
 
 		String abc = String.join(" ", "Java", "8");

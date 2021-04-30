@@ -1,4 +1,4 @@
-package collections_class;
+package stream_api;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -12,7 +12,7 @@ import java.util.stream.Collectors;
 
 import model.Employee;
 
-public class CollectionsDemo {
+public class CollectionsWithStreamDemo {
 	
 	// some dummy data to operate on
 	//private static byte[] byteArrayPrimitiveType = { 10, 5, -44, -99, 47, 19, -35 };

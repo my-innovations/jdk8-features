@@ -1,11 +1,11 @@
-package comparator;
+package lambda_expression;
 
 import java.util.Comparator;
 
 import model.Employee;
 
 //using jdk7 and before
-public class MyCustomComparator implements Comparator<Employee> {
+public class EmployeeComparator implements Comparator<Employee> {
 	
 	@Override
 	public int compare(Employee emp1, Employee emp2) {
