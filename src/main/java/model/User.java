@@ -2,18 +2,18 @@ package model;
 
 public class User {
 	
-	double score;
+	int score;
 
-	public User(double score) {
+	public User(int score) {
 		super();
 		this.score = score;
 	}
 
-	public double getScore() {
+	public int getScore() {
 		return score;
 	}
 
-	public void setScore(double score) {
+	public void setScore(int score) {
 		this.score = score;
 	}
 

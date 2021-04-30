@@ -1,4 +1,5 @@
   static final boolean $assertionsDisabled;
+  
   public static void sort(int[]);
   public static void sort(int[], int, int);
   public static void sort(long[]);

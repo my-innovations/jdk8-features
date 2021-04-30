@@ -10,6 +10,7 @@ import java.util.Comparator;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.OptionalDouble;
 import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.DoubleStream;
@@ -46,10 +47,11 @@ public class ArraysDemo {
 
 	public static void main(String[] args) throws IOException {
 		
-		convertAnyArrayToStream();
+		//convertAnyArrayToStream();
 		
-		largest_smallest_Item_From_any_primitive_Array();
-		largest_smallest_Item_From_any_wrapper_Array();
+		largest_smallest_sum_avg_From_any_primitive_Array();
+		
+		/*largest_smallest_Item_From_any_wrapper_Array();
 		
 		removeDuplicateItemsFromAnyArray();
 		
@@ -67,11 +69,11 @@ public class ArraysDemo {
 		
 		namesStartingWithSpecificCharInStringArray();
 		namesStartingWithSpecificCharInStringList();
-		sortContentOfFile();
+		sortContentOfFile();*/
 		
 	}
 	
-	private static void largest_smallest_Item_From_any_primitive_Array() {
+	private static void largest_smallest_sum_avg_From_any_primitive_Array() {
 		
 	    int max1 = Arrays.stream(intArrayPrimitiveType).max().getAsInt();
 		//int max = Arrays.stream(intArrayWrapperType).max().getAsInt(); //CE
@@ -80,6 +82,15 @@ public class ArraysDemo {
 	    int min1 = Arrays.stream(intArrayPrimitiveType).min().getAsInt();
 	    // int min1 = Arrays.stream(intArrayWrapperType).min().getAsInt(); //CE
 	    System.out.println(min1);
+	    
+	    int sum =Arrays.stream(intArrayPrimitiveType).sum();
+	    System.out.println("sum="+sum);
+	    
+	    OptionalDouble avg = Arrays.stream(intArrayPrimitiveType).average();
+	    System.out.println("avg="+avg.getAsDouble());
+	    
+	    
+	    //  ******************
 	    
 	    long max2 = Arrays.stream(longArrayPrimitiveType).max().getAsLong();
 		//long max2 = Arrays.stream(longArrayWrapperType).max().getAsLong(); //CE
@@ -96,6 +107,8 @@ public class ArraysDemo {
 	    double min3 = Arrays.stream(doubleArrayPrimitiveType).min().getAsDouble();
 	    // double min3 = Arrays.stream(doubleArrayWrapperType).min().getAsDouble(); //CE
 	    System.out.println(min3);
+	    
+	    
 	}
 	
 	private static void largest_smallest_Item_From_any_wrapper_Array() {
@@ -147,7 +160,7 @@ private static void countNoOfOccurancesOfEachItemInAnyArray() {
 			System.out.println(item + ": " + Collections.frequency(list, item));
 
 		// way-02
-		Map<Integer, Long> counts = list.stream().collect(Collectors.groupingBy(e -> e, Collectors.counting()));
+		Map<Integer, Long> counts = list.stream().collect(Collectors.groupingBy(item -> item, Collectors.counting()));
 		System.out.println(counts);
 	
 	}
@@ -218,27 +231,38 @@ private static void countNoOfOccurancesOfEachItemInAnyArray() {
 		//@@@@@@ way-01
 
 		// Arrays.stream(byteArrayPrimitiveType).forEach(System.out::print);//CE
+		 Arrays.stream(byteArrayWrapperType).forEach(System.out::print);
+		 
 		// Arrays.stream(shortArrayPrimitiveType).forEach(System.out::print);//CE
+		 Arrays.stream(shortArrayWrapperType).forEach(System.out::print);
 		
-		IntStream s = Arrays.stream(intArrayPrimitiveType);
-		s.forEach(System.out::println);
+		IntStream intStream = Arrays.stream(intArrayPrimitiveType);
+		//IntStream s = Arrays.stream(intArrayWrapperType);//CE
+		intStream.forEach(System.out::println);
 		//s.forEachOrdered(System.out::println);
 		
 		Arrays.stream(intArrayPrimitiveType).forEach(System.out::print);
 		//Arrays.stream(intArrayPrimitiveType,2,3).forEach(System.out::print);
+		
+		Arrays.stream(intArrayWrapperType).forEach(System.out::print);
 		
 		LongStream s2 = Arrays.stream(longArrayPrimitiveType);
 		s2.forEach(System.out::println);
 		
 		Arrays.stream(longArrayPrimitiveType).forEach(System.out::print);
 		//Arrays.stream(longArrayPrimitiveType,2,2).forEach(System.out::print);
-		// Arrays.stream(floatArrayPrimitiveType).forEach(System.out::print);//CE
+		
+		Arrays.stream(longArrayWrapperType).forEach(System.out::print);
+		
+		//Arrays.stream(floatArrayPrimitiveType).forEach(System.out::print);//CE
+		Arrays.stream(floatArrayWrapperType).forEach(System.out::print);
 		
 		DoubleStream s3 = Arrays.stream(doubleArrayPrimitiveType);
 		s3.forEach(System.out::println);
 		
 		Arrays.stream(doubleArrayPrimitiveType).forEach(System.out::print);
 		//Arrays.stream(doubleArrayPrimitiveType,3,2).forEach(System.out::print);
+		Arrays.stream(doubleArrayWrapperType).forEach(System.out::print);
 		
 
 		//@@@@@@ way-02
@@ -353,54 +377,13 @@ private static void countNoOfOccurancesOfEachItemInAnyArray() {
 	public static void sortAnyArray() {
 	
 		
-		// ***************************************************** with both primitive and wrapper  type ********************************************************
-
-		// way-01 , sorting int array in ascending order
-
+		// way-01 , sorting byte array in ascending order
 		Arrays.sort(byteArrayPrimitiveType);
 		System.out.println("byte arr after sort:" + Arrays.toString(byteArrayPrimitiveType));
 
 		Arrays.sort(byteArrayWrapperType);
 		System.out.println("byte arr after sort:" + Arrays.toString(byteArrayWrapperType));
-
-		Arrays.sort(shortArrayPrimitiveType);
-		System.out.println(Arrays.toString(shortArrayPrimitiveType));
-
-		Arrays.sort(shortArrayWrapperType);
-		System.out.println(Arrays.toString(shortArrayWrapperType));
-
-		Arrays.sort(intArrayPrimitiveType);
-		System.out.println(Arrays.toString(intArrayPrimitiveType));
-
-		Arrays.sort(intArrayWrapperType);
-		System.out.println(Arrays.toString(intArrayWrapperType));
-
-		Arrays.sort(floatArrayPrimitiveType);
-		System.out.println(Arrays.toString(floatArrayPrimitiveType));
-
-		Arrays.sort(floatArrayWrapperType);
-		System.out.println(Arrays.toString(floatArrayWrapperType));
-
-		Arrays.sort(longArrayPrimitiveType);
-		System.out.println(Arrays.toString(longArrayPrimitiveType));
-
-		Arrays.sort(doubleArrayPrimitiveType);
-		System.out.println(Arrays.toString(doubleArrayPrimitiveType));
-
-		Arrays.sort(doubleArrayWrapperType);
-		System.out.println(Arrays.toString(doubleArrayWrapperType));
-
-		Arrays.sort(charArrayPrimitiveType);
-		System.out.println(Arrays.toString(charArrayPrimitiveType));
-
-		Arrays.sort(charArrayWrapperType);
-		System.out.println(Arrays.toString(charArrayWrapperType));
-
-		Arrays.sort(stringArray);
-		System.out.println(Arrays.toString(stringArray));
-
-		// ***************************************************** with wrapper type only   ********************************************************
-
+		
 		Comparator<Byte> byteComparator1 = new Comparator<Byte>() {
 			@Override
 			public int compare(Byte i1, Byte i2) {
@@ -408,31 +391,34 @@ private static void countNoOfOccurancesOfEachItemInAnyArray() {
 			}
 		};
 		
+		//way-02
 		Comparator<Byte> byteComparator2 = (Byte num1, Byte num2) -> num1.compareTo(num2); // ascending
 		Comparator<Byte> byteComparator3 = (Byte num1, Byte num2) -> num2.compareTo(num1); // descending
-		
-		//way-1
-		Arrays.sort(byteArrayPrimitiveType);
-		System.out.println("byte arr ===>" + Arrays.toString(byteArrayPrimitiveType));
 		
 		// Arrays.sort(byteArrayPrimitiveType, byteComparator1); //CE
 		Arrays.sort(byteArrayWrapperType, byteComparator1);
 		System.out.println("byte arr ===>" + Arrays.toString(byteArrayWrapperType));
 		
-
-		//way-2
 		//Arrays.stream(byteArrayPrimitiveType).sorted(); //CE
 		Arrays.stream(byteArrayWrapperType).sorted().forEach(System.out::println);
 		Arrays.stream(byteArrayWrapperType).sorted().distinct().forEach(System.out::println);
 		
+		//way-03
 		Stream.of(byteArrayPrimitiveType).sorted().forEach(System.out::println);;
 		Stream.of(byteArrayWrapperType).sorted().forEach(System.out::println);;
 		Stream.of(byteArrayWrapperType).sorted(byteComparator1).forEach(System.out::println);;
 		Stream.of(byteArrayWrapperType).sorted(byteComparator2).forEach(System.out::println);;
 		Stream.of(byteArrayWrapperType).sorted(byteComparator3).forEach(System.out::println);;
+		
+		//************************************************************************************
 
-		// *****************************************************
+		//way-01
+		Arrays.sort(shortArrayPrimitiveType);
+		System.out.println(Arrays.toString(shortArrayPrimitiveType));
 
+		Arrays.sort(shortArrayWrapperType);
+		System.out.println(Arrays.toString(shortArrayWrapperType));
+		
 		Comparator<Short> shortComparator1 = new Comparator<Short>() {
 			@Override
 			public int compare(Short i1, Short i2) {
@@ -440,23 +426,19 @@ private static void countNoOfOccurancesOfEachItemInAnyArray() {
 			}
 		};
 		
+		//way-02
 		Comparator<Short> shortComparator2 = (Short num1, Short num2) -> num1.compareTo(num2); // ascending
 		Comparator<Short> shortComparator3 = (Short num1, Short num2) -> num2.compareTo(num1); // descending
-		
-		
-		//way-1
-		Arrays.sort(shortArrayPrimitiveType);
-		System.out.println("short arr ===>" + Arrays.toString(shortArrayPrimitiveType));
 		
 		// Arrays.sort(shortArrayPrimitiveType, shortComparator); //CE
 		Arrays.sort(shortArrayWrapperType, shortComparator1);
 		System.out.println("short arr === "+Arrays.toString(shortArrayWrapperType));
 		
-		//way-2
 		//Arrays.stream(shortArrayPrimitiveType).sorted(); //CE
 		Arrays.stream(shortArrayWrapperType).sorted().forEach(System.out::println);;
 		Arrays.stream(shortArrayWrapperType).sorted().distinct().forEach(System.out::println);
 		
+		//way-03
 		Stream.of(shortArrayPrimitiveType).sorted().forEach(System.out::println);;
 		Stream.of(shortArrayPrimitiveType).sorted().distinct().forEach(System.out::println);;
 		Stream.of(shortArrayWrapperType).sorted().forEach(System.out::println);;
@@ -465,9 +447,14 @@ private static void countNoOfOccurancesOfEachItemInAnyArray() {
 		Stream.of(shortArrayWrapperType).sorted(shortComparator2).forEach(System.out::println);;
 		Stream.of(shortArrayWrapperType).sorted(shortComparator3).forEach(System.out::println);;
 		
-	
-		// *****************************************************
+		//************************************************************************************
+		
+		Arrays.sort(intArrayPrimitiveType);
+		System.out.println(Arrays.toString(intArrayPrimitiveType));
 
+		Arrays.sort(intArrayWrapperType);
+		System.out.println(Arrays.toString(intArrayWrapperType));
+		
 		Comparator<Integer> intComparator1 = new Comparator<Integer>() {
 			@Override
 			public int compare(Integer i1, Integer i2) {
@@ -481,8 +468,6 @@ private static void countNoOfOccurancesOfEachItemInAnyArray() {
 		Comparator<Integer> intComparator2 = (Integer num1, Integer num2) -> num1.compareTo(num2); // ascending
 		Comparator<Integer> intComparator3 = (Integer num1, Integer num2) -> num2.compareTo(num1); // descending
 		
-		Arrays.sort(intArrayPrimitiveType);
-		System.out.println("int array == "+Arrays.toString(intArrayPrimitiveType));
 		Arrays.sort(intArrayWrapperType);
 		System.out.println("int array == "+Arrays.toString(intArrayWrapperType));
 		Arrays.sort(intArrayWrapperType, intComparator1);
@@ -504,9 +489,38 @@ private static void countNoOfOccurancesOfEachItemInAnyArray() {
 		Stream.of(intArrayWrapperType).sorted(intComparator1).forEach(System.out::println);
 		Stream.of(intArrayWrapperType).sorted(intComparator2).forEach(System.out::println);
 		Stream.of(intArrayWrapperType).sorted(intComparator3).forEach(System.out::println);
+		
+		//************************************************************************************
 
-		// *****************************************************
+		Arrays.sort(floatArrayPrimitiveType);
+		System.out.println(Arrays.toString(floatArrayPrimitiveType));
 
+		Arrays.sort(floatArrayWrapperType);
+		System.out.println(Arrays.toString(floatArrayWrapperType));
+		
+		Comparator<Object> floatComparator = new Comparator<Object>() {
+			@Override
+			public int compare(Object i1, Object i2) {
+				Float num1 = (Float) i1;
+				Float num2 = (Float) i2;
+				return num2.compareTo(num1);
+			}
+		};
+		//Arrays.sort(longArray1, longComparator);//CE
+		Arrays.sort(floatArrayWrapperType, floatComparator);
+		System.out.println("float arr ====="+Arrays.toString(floatArrayWrapperType));
+
+		List<Long> list022 = new ArrayList<>();
+		list022.add(12L);
+		list022.add(33l);
+		Collections.sort(list022, floatComparator);
+
+		
+		//************************************************************************************
+
+		Arrays.sort(longArrayPrimitiveType);
+		System.out.println(Arrays.toString(longArrayPrimitiveType));
+		
 		Comparator<Object> longComparator = new Comparator<Object>() {
 			@Override
 			public int compare(Object i1, Object i2) {
@@ -529,28 +543,14 @@ private static void countNoOfOccurancesOfEachItemInAnyArray() {
 		
 		Stream.of(longArrayWrapperType).sorted();
 		Stream.of(longArrayWrapperType).sorted(longComparator);
-
-
-		// *****************************************************
 		
-		Comparator<Object> floatComparator = new Comparator<Object>() {
-			@Override
-			public int compare(Object i1, Object i2) {
-				Float num1 = (Float) i1;
-				Float num2 = (Float) i2;
-				return num2.compareTo(num1);
-			}
-		};
-		//Arrays.sort(longArray1, longComparator);//CE
-		Arrays.sort(floatArrayWrapperType, floatComparator);
-		System.out.println("float arr ====="+Arrays.toString(floatArrayWrapperType));
+		//************************************************************************************
 
-		List<Long> list022 = new ArrayList<>();
-		list22.add(12L);
-		list22.add(33l);
-		Collections.sort(list022, longComparator);
+		Arrays.sort(doubleArrayPrimitiveType);
+		System.out.println(Arrays.toString(doubleArrayPrimitiveType));
 
-		// *****************************************************
+		Arrays.sort(doubleArrayWrapperType);
+		System.out.println(Arrays.toString(doubleArrayWrapperType));
 		
 		Comparator<Object> doubleComparator = new Comparator<Object>() {
 			@Override
@@ -570,9 +570,21 @@ private static void countNoOfOccurancesOfEachItemInAnyArray() {
 		Stream.of(doubleArrayWrapperType).sorted();
 		Stream.of(doubleArrayWrapperType).sorted(doubleComparator);
 
+		
+		//************************************************************************************
 
-		// *****************************************************
+		Arrays.sort(charArrayPrimitiveType);
+		System.out.println(Arrays.toString(charArrayPrimitiveType));
 
+		Arrays.sort(charArrayWrapperType);
+		System.out.println(Arrays.toString(charArrayWrapperType));
+		
+		//************************************************************************************
+		//way-01
+		Arrays.sort(stringArray);
+		System.out.println(Arrays.toString(stringArray));
+		
+		//way-02
 		Comparator<String> strComparator = new Comparator<String>() {
 			@Override
 			public int compare(String name1, String name2) {
@@ -580,13 +592,17 @@ private static void countNoOfOccurancesOfEachItemInAnyArray() {
 				return name2.compareTo(name1);
 			}
 		};
+		
+		Comparator<String> sortByNameCustomComparator = (String str1, String str2) -> str1.compareTo(str2);
+		
 		Arrays.sort(stringArray, strComparator);
 		System.out.println("str arr === "+Arrays.toString(stringArray));
 		
+		Arrays.sort(stringArray, sortByNameCustomComparator);
+		System.out.println("str arr === "+Arrays.toString(stringArray));
 		
-		Arrays.sort(stringArray);
-		// OR
-
+		
+		//way-03
 		Comparator<String> sortByLengthComparator = new Comparator<String>() {
 			@Override
 			public int compare(String str1, String str2) {
@@ -596,10 +612,6 @@ private static void countNoOfOccurancesOfEachItemInAnyArray() {
 
 		Arrays.sort(stringArray, sortByLengthComparator);
 		
-		Arrays.sort(stringArray);
-		//OR
-		Comparator<String> sortByNameCustomComparator = (String str1, String str2) -> str1.compareTo(str2);
-		Arrays.sort(stringArray, sortByNameCustomComparator);
 		
 
 	}
