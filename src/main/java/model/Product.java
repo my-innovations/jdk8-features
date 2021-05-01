@@ -2,9 +2,9 @@ package model;
 
 public class Product {
 
-	public int id;
-	public String name;
-	public float price;
+	private Integer id;
+	private String name;
+	private Float price;
 
 	public Product(int id, String name, float price) {
 		this.id = id;
@@ -12,11 +12,11 @@ public class Product {
 		this.price = price;
 	}
 
-	public int getId() {
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 
@@ -28,12 +28,17 @@ public class Product {
 		this.name = name;
 	}
 
-	public float getPrice() {
+	public Float getPrice() {
 		return price;
 	}
 
-	public void setPrice(float price) {
+	public void setPrice(Float price) {
 		this.price = price;
+	}
+
+	@Override
+	public String toString() {
+		return "Product [id=" + id + ", name=" + name + ", price=" + price + "]";
 	}
 
 }

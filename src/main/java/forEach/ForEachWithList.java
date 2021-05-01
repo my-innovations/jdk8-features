@@ -13,20 +13,19 @@ import model.Employee;
 public class ForEachWithList {
 
 	// dummy data
-	private static List<Employee> empList = Arrays.asList(new Employee(1, "Shifoo", "acc1", "IT", 25, 150000d),	new Employee(1, "Shifoo", "acc1", "IT", 25, 50000d), new Employee(1, "Shifoo", "acc1", "IT", 25, 450000d));
-	private static List<Object[]> splitUpNames = Arrays.asList("John Woo", "Jeff Dean", "Josh Bloch", "Josh Long").stream().map(name -> name.split(" ")).collect(Collectors.toList());
+	private static List<Integer> numList = Arrays.asList(1, 2, 3, 4, 5, 6);
 	private static List<String> alphabets = Arrays.asList("A", "B", "C", "D");
 	private static List<String> strList = Arrays.asList("A", "B", "C", "D");
-	private static List<String> names = Arrays.asList("Maggie", "Michonne", "Rick", "Governor");
-	private static List<String> names3 = Arrays.asList("Melisandre", "Sansa", "Jon", "Daenerys", "Joffery", "Sansa");
-	private static List<Integer> numList = Arrays.asList(1, 2, 3, 4, 5, 6);
+	private static List<String> namesList = Arrays.asList("Melisandre", "Sansa", "Jon", "Daenerys", "Joffery", "Sansa");
+	private static List<Object[]> splitUpNames = Arrays.asList("John Woo", "Jeff Dean", "Josh Bloch", "Josh Long").stream().map(name -> name.split(" ")).collect(Collectors.toList());
+	private static List<Employee> empList = Arrays.asList(new Employee(1, "Shifoo", "acc1", "IT", 25, 150000d),	new Employee(1, "Shifoo", "acc1", "IT", 25, 50000d), new Employee(1, "Shifoo", "acc1", "IT", 25, 450000d));
 
 	public static void main(String[] args) {
-		iterateListUsingForLoop();
+		iterateListUsingForEachLoop();
 		findUniqueNamesFromList();
 	}
 
-	public static void iterateListUsingForLoop() {
+	public static void iterateListUsingForEachLoop() {
 
 		// ex-01
 		System.out.println("\n traversing list using for loop");
@@ -111,31 +110,28 @@ public class ForEachWithList {
 																						// forEach
 
 		// EX-03
-		names.stream().filter(f -> f.startsWith("M")).parallel().forEach(n -> System.out.println(n));
+		namesList.stream().filter(f -> f.startsWith("M")).parallel().forEach(n -> System.out.println(n));
 
 		// ex-04
-		names.stream().filter(f -> f.startsWith("M")).parallel().forEachOrdered(n -> System.out.println(n));
+		namesList.stream().filter(f -> f.startsWith("M")).parallel().forEachOrdered(n -> System.out.println(n));
 
 		// ex-05
 		// Creating the stream of all names
-		Stream<String> allNames = names.stream();
+		Stream<String> allNames = namesList.stream();
 		// Creating another stream by filtering long names using filter()
 		Stream<String> longNames = allNames.filter(str -> str.length() > 6);
 		// displaying the long names
 		longNames.forEach(str -> System.out.print(str + " "));
 
 		// Stream filter() and collect()
-		List<String> longnames = names.stream() // converting the list to stream
+		List<String> longnames = namesList.stream() // converting the list to stream
 				.filter(str -> str.length() > 6) // filter the stream to create a new stream
 				.collect(Collectors.toList()); // collect the final stream and convert it to a List
 
 		longnames.forEach(System.out::println);
 
 		// ex-
-		List<String> longnames3 = names3.stream().filter(str -> str.length() > 6 && str.length() < 8) // Multiple
-																										// conditions
-				.collect(Collectors.toList());
-
+		List<String> longnames3 = namesList.stream().filter(str -> str.length() > 6 && str.length() < 8).collect(Collectors.toList());
 		longnames3.forEach(System.out::println);
 
 		// EX-
@@ -145,9 +141,10 @@ public class ForEachWithList {
 	}
 
 	public static void findUniqueNamesFromList() {
+		
 		// EX-way-01
 		List<String> list = new ArrayList<>();
-		for (String name : names3) {
+		for (String name : namesList) {
 			if (!list.contains(name)) {
 				list.add(name);
 			}
@@ -155,7 +152,7 @@ public class ForEachWithList {
 		System.out.println(list);
 
 		// EX-way-02
-		List<String> uniqueNames = names3.stream().distinct().collect(Collectors.toList());
+		List<String> uniqueNames = namesList.stream().distinct().collect(Collectors.toList());
 		System.out.println(uniqueNames);
 
 	}
