@@ -17,7 +17,7 @@ import model.Product;
 public class CollectorsDemo {
 
 	//some dummy data 
-	private static Double[] doubleArray = { 2.5d, 7.8d, 4.9d };
+	private static Double[] doubleArrayWrapperType = { 2.5d, 7.8d, 4.9d };
 	private static List<String> namesList = Arrays.asList("Jon", "Ajeet", "Steve", "Ajeet", "Jon", "Ajeet");
 	private static List<Product> productsList = Arrays.asList(
 		new Product(1, "HP Laptop", 25000f),
@@ -49,13 +49,13 @@ public class CollectorsDemo {
 	public static void summationOfAllItemsOfDoubleArray() {
 		
 		//way-01
-		Double d = Stream.of(doubleArray)
+		Double sumRes = Stream.of(doubleArrayWrapperType)
 				.reduce(0.0, (Double d1, Double d2) -> d1 + d2);
 		// Double d = Collectors.computeFinalSum(doubleArrayprimitive);
-		System.out.println(d);
+		System.out.println(sumRes);
 		
 		//way-02
-		Double res = (Double) Stream.of(doubleArray)
+		Double res = (Double) Stream.of(doubleArrayWrapperType)
 				.collect(Collectors.reducing(0d, (num1, num2) -> num1 + num2));
 		System.out.println(res);
 	}
@@ -63,14 +63,14 @@ public class CollectorsDemo {
 	public static void multiplicationOfAllItemsOfDoubleArray() {
 		
 		//way-01
-		Double d = Stream.of(doubleArray)
+		Double d = Stream.of(doubleArrayWrapperType)
 				.reduce(1.0, (Double d1, Double d2) -> d1 * d2);
 		// Double d = Collectors.computeFinalSum(doubleArrayprimitive);
 		System.out.println(d);
 		
 		//way-02
 		//product of all items of the array
-		Double res = (Double) Stream.of(doubleArray)
+		Double res = (Double) Stream.of(doubleArrayWrapperType)
 				.collect(Collectors.reducing(1d, (num1, num2) -> num1 * num2));
 		System.out.println(res);
 		
