@@ -6,8 +6,8 @@ import java.util.function.UnaryOperator;
 
 public class F09_Unary_Binary_Optr_Demp {
 
-	static UnaryOperator<String> toUppercaseUnaryOperator = name -> name.toUpperCase();
-	static UnaryOperator<Integer> addWith10UnaryOperator = num -> num + 10;
+	private static UnaryOperator<String> toUppercaseUnaryOperator = name -> name.toUpperCase();
+	private static UnaryOperator<Integer> addWith10UnaryOperator = num -> num + 10;
 
 	// using with comparator with BinaryOperator.
 	static Comparator<Integer> comparator1 = ((a, b) -> (a > b) ? 1 : (a == b) ? 0 : -1);

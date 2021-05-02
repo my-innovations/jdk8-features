@@ -7,12 +7,15 @@ import model.Person;
 import model.PersonRepository;
 
 public class F03_PedicateDemo {
-
+	
+	private static Predicate<Integer> leassThan50Predicate = num -> (num <= 50);
+	private static Predicate<Integer> greaterThanAndEqualPredicate = num -> num >= 100;
+	private static Predicate<Integer> equalToZeroPredicate = (num) -> (num == 0);
+	private static  Predicate<Person> personHeightGreaterThanAndEqualTo150Predicate = person -> person.getHeight() >= 150;
+	private static  Predicate<Person> personGenderIsMalePredicate = person -> person.getGender().equals("male");
+	private static  Predicate<Person> personGenderIsMaleAndHeightGreaterThanEqualTo150Predicate = person -> person.getGender().equals("male") && person.getHeight() >= 100;
+	
 	public static void main(String[] args) {
-
-		Predicate<Integer> leassThan50Predicate = num -> (num <= 50);
-		Predicate<Integer> greaterThanAndEqualPredicate = num -> num >= 100;
-		Predicate<Integer> equalToZeroPredicate = (num) -> (num == 0);
 
 		// ex-01
 		boolean res = leassThan50Predicate.test(55);
@@ -34,10 +37,6 @@ public class F03_PedicateDemo {
 		System.out.println(res3); // true
 
 		// ex-05
-		Predicate<Person> personHeightGreaterThanAndEqualTo150Predicate = person -> person.getHeight() >= 150;
-		Predicate<Person> personGenderIsMalePredicate = person -> person.getGender().equals("male");
-		Predicate<Person> personGenderIsMaleAndHeightGreaterThanEqualTo150Predicate = person -> person.getGender().equals("male") && person.getHeight() >= 100;
-
 		// using person repository , list
 		PersonRepository.getAllPesons().stream().filter(person -> person.getHeight() >= 100).collect(Collectors.toList()).forEach(person -> {
 		// PersonRepository.getAllPesons().stream().filter(predicate03).collect(Collectors.toList()).forEach(person -> { //OK

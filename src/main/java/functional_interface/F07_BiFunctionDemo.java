@@ -11,12 +11,11 @@ import model.Person;
 
 public class F07_BiFunctionDemo {
 
-	static BiFunction<String, String, String> concatBiFunction = (a, b) -> (a + " " + b);
-	
+	private static BiFunction<String, String, String> concatBiFunction = (a, b) -> (a + " " + b);
 	//bifunction with predicate
-	static Predicate<Person> personHeightGreaterThanEqualTo100Predicate = person -> person.getHeight() >= 100;
-	static Predicate<Person> personGenderIsMalePredicate = person -> person.getGender().contentEquals("male");
-	static BiFunction<List<Person>, Predicate<Person>, Map<String, Double>> personFirstnameWithSalaryBiFunction = (personsList, personGenderIsMalePredicate) -> {
+	private static Predicate<Person> personHeightGreaterThanEqualTo100Predicate = person -> person.getHeight() >= 100;
+	private static Predicate<Person> personGenderIsMalePredicate = person -> person.getGender().contentEquals("male");
+	private static BiFunction<List<Person>, Predicate<Person>, Map<String, Double>> personFirstnameWithSalaryBiFunction = (personsList, personGenderIsMalePredicate) -> {
 		Map<String, Double> firstnameAndSalMap = new HashMap<>();
 		personsList.forEach(person -> {
 			if (personHeightGreaterThanEqualTo100Predicate.and(personGenderIsMalePredicate).test(person))
