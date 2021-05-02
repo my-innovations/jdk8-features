@@ -66,7 +66,9 @@ public class CollectionObjectsWithStreamDemo {
 	//List type data
 	//private static List<Byte> byteList = Arrays.asList(1, 34, 78, 90, 27, 45); //CE
 	//private static List<Short> shortList = Arrays.asList(1, 34, 78, 90, 27, 45); //CE
+	
 	//private static List<Integer> integerList = Arrays.asList(1, 2, 3, 4, 5); //OK
+	//private static List<Integer> integerList = Arrays.asList(new Integer[]{1, 2, 3, 4, 5}); //OK
 	private static List<Integer> integerList = Arrays.asList(integerArrayWrapperType);
 	private static List<Long> longlist = Arrays.asList(longArrayWrapperType);
 	private static List<Float> floatlist = Arrays.asList(floatArrayWrapperType);

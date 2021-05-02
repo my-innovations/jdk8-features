@@ -27,8 +27,7 @@ public class StringJoiner_demo {
 		String result02 = list2.stream().map(x -> x).collect(Collectors.joining(" | ")); // java | python | nodejs | ruby
 		System.out.println(result02);
 
-		//Ex-01
-		//joins strings by /
+		//joins strings by / with initial DOB-
 		StringJoiner joinner1 = new StringJoiner("/", "DOB-", " ");
 		joinner1.add("2016");
 		joinner1.add("02");
@@ -37,8 +36,7 @@ public class StringJoiner_demo {
 		System.out.println(result);
 
 		
-		//Ex-02
-		// passing comma(,) as delimiter
+		// joins strings by comma
 		StringJoiner joinNames = new StringJoiner(",");
 		// Adding values to StringJoiner
 		joinNames.add("Rahul");
@@ -47,8 +45,7 @@ public class StringJoiner_demo {
 		joinNames.add("Raheem");
 		System.out.println(joinNames);
 
-		//Ex-03
-		// passing comma(,) and square-brackets as delimiter
+		// joins string by comma and square-brackets as delimiter
 		StringJoiner joinNames2 = new StringJoiner(",", "[", "]");
 		// Adding values to StringJoiner
 		joinNames2.add("Rahul");
@@ -57,7 +54,7 @@ public class StringJoiner_demo {
 		joinNames2.add("Raheem");
 		System.out.println(joinNames2); //[Rahul,Raju,Peter,Raheem]
 
-		//Ex-04 , Merge Two StringJoiner
+		//Ex- joins string by comma and Merge Two StringJoiner
 		// passing comma(,) and square-brackets as delimiter
 		StringJoiner joinNames3 = new StringJoiner(",", "[", "]");
 		joinNames3.add("Rahul");
@@ -67,8 +64,6 @@ public class StringJoiner_demo {
 		// Creating StringJoiner with :(colon) delimiter
 		// passing colon(:) and square-brackets as delimiter
 		StringJoiner joinNames4 = new StringJoiner(":", "[", "]");
-
-		// Adding values to StringJoiner
 		joinNames4.add("Peter");
 		joinNames4.add("Raheem");
 
