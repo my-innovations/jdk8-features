@@ -14,6 +14,13 @@ public class CustomComparatorDemo {
 	private static List<String> namesList = Arrays.asList("Mahesh","Suresh","Naresh","Kalpesh ");
 	private static List<Employee> employeeList = Arrays.asList(new Employee(1,"Shifoo","acc1","IT",25, 150000d),	new Employee(2,"Punya","acc2","IT",40, 250000d));
 	private static List<Person> personList = Arrays.asList(new Person("Tom Jones", "abc"), new Person("Harry Major", "bcw"),new Person("Harry Major", "mnf"));
+	
+	private static Comparator<Integer> comparator1 = new Comparator<Integer>() {
+		@Override
+		public int compare(Integer num1, Integer num2) {
+			return num1.compareTo(num2);
+		}
+	};
 
 
 	public static void main(String[] args) {
@@ -27,13 +34,6 @@ public class CustomComparatorDemo {
 	public static void custom_comparator_demo() {
 
 		// ex-01 using java-7 comparator
-		Comparator<Integer> comparator1 = new Comparator<Integer>() {
-			@Override
-			public int compare(Integer num1, Integer num2) {
-				return num1.compareTo(num2);
-			}
-		};
-
 		System.out.println(comparator1.compare(10, 20)); // -1
 		System.out.println(comparator1.compare(20, 10)); // 1
 
