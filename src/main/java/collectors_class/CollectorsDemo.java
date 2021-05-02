@@ -50,7 +50,7 @@ public class CollectorsDemo {
 	// private static Character[] charArrayWrapperType2 = new Character[] { 'a', 'm', 'y', 'u' }; //OK
 	private static String[] stringArray = { "punya", "Partha", "Aswini", "punya","Arabind" };
 	//private static String[] stringArray2 = new String[]{ "punya", "Partha", "Aswini", "punya","Arabind" }; //Ok
-	private static List<String> namesList = Arrays.asList("Jon", "Ajeet", "Steve", "Ajeet", "Jon", "Ajeet");
+	private static List<String> stringList = Arrays.asList("Jon", "Ajeet", "Steve", "Ajeet", "Jon", "Ajeet");
 	
 	
 	private static List<Product> productsList = Arrays.asList(
@@ -114,13 +114,13 @@ public class CollectorsDemo {
 	
 	public static void findNoOfOccurancesOfEachItemInAnArray() {
 		//way-01
-		Map<String, Long> map = namesList
+		Map<String, Long> map = stringList
 				.stream()
 				.collect(Collectors.groupingBy(Function.identity(), Collectors.counting()));
 		System.out.println(map);
 		
 		//way-02
-		Map<String, Long> counts = namesList
+		Map<String, Long> counts = stringList
 				.stream()
 				.collect(Collectors.groupingBy(item -> item, Collectors.counting()));
 		System.out.println(counts);

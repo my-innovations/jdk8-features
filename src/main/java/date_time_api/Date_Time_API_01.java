@@ -8,6 +8,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.Month;
+import java.time.OffsetDateTime;
 import java.time.Period;
 import java.time.ZoneId;
 import java.time.ZoneOffset;
@@ -33,6 +34,9 @@ public class Date_Time_API_01 {
 		int seconds = currentTime.getSecond();
 
 		System.out.println("Month: " + month + "day: " + day + "seconds: " + seconds);
+		
+		LocalDateTime localDateTime2 = LocalDateTime.now(); 
+		System.out.println(localDateTime2);
 
 		LocalDateTime date2 = currentTime.withDayOfMonth(10).withYear(2012);
 		System.out.println("date2: " + date2);
@@ -65,6 +69,9 @@ public class Date_Time_API_01 {
 		// Get the current date and time
 		ZonedDateTime date11 = ZonedDateTime.parse("2007-12-03T10:15:30+05:30[Asia/Karachi]");
 		System.out.println("date1: " + date11);
+		
+		OffsetDateTime offsetDateTime = OffsetDateTime.now();
+		System.out.println(offsetDateTime);
 
 		ZoneId id = ZoneId.of("Europe/Paris");
 		System.out.println("ZoneId: " + id);
