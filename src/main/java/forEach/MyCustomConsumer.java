@@ -2,12 +2,12 @@ package forEach;
 
 import java.util.function.Consumer;
 
-import model.Employee;
+import model.Person;
 
-public class MyCustomConsumer implements Consumer<Employee> {
+public class MyCustomConsumer implements Consumer<Person> {
 	
 	@Override
-	public void accept(Employee emp) {
+	public void accept(Person emp) {
 		System.out.print(emp + " ");
 	}
 }

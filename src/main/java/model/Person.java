@@ -4,35 +4,42 @@ import java.util.List;
 
 public class Person {
 
+	public Integer id;
 	public String firstName;
 	public String lastName;
 	public Double sal;
 	public String gender;
+	public Integer age;
 	public Integer height;
 	public List<String> hobbies;
 
 	public Person() {
 	}
-	
-	public Person(String firstName) {
-		super();
-		this.firstName = firstName;
-	}
-	
-	public Person(String firstName, String lastName) {
-		super();
-		this.firstName = firstName;
-		this.lastName = lastName;
-	}
 
-	public Person(String firstName, String lastName, Double sal, String gender, Integer height, List<String> hobbies) {
+	public Person(Integer id, String firstName, String lastName, Double sal, String gender, Integer age, Integer height,
+			List<String> hobbies) {
 		super();
+		this.id = id;
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.sal = sal;
 		this.gender = gender;
+		this.age = age;
 		this.height = height;
 		this.hobbies = hobbies;
+	}
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+	public Person(String firstName) {
+		super();
+		this.firstName = firstName;
 	}
 
 	public String getFirstName() {
@@ -81,6 +88,14 @@ public class Person {
 
 	public void setSal(Double sal) {
 		this.sal = sal;
+	}
+
+	public Integer getAge() {
+		return age;
+	}
+
+	public void setAge(Integer age) {
+		this.age = age;
 	}
 
 	@Override

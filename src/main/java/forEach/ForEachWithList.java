@@ -8,7 +8,7 @@ import java.util.function.Consumer;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import model.Employee;
+import model.Person;
 
 public class ForEachWithList {
 
@@ -18,7 +18,7 @@ public class ForEachWithList {
 	private static List<String> strList = Arrays.asList("A", "B", "C", "D");
 	private static List<String> namesList = Arrays.asList("Melisandre", "Sansa", "Jon", "Daenerys", "Joffery", "Sansa");
 	private static List<Object[]> splitUpNames = Arrays.asList("John Woo", "Jeff Dean", "Josh Bloch", "Josh Long").stream().map(name -> name.split(" ")).collect(Collectors.toList());
-	private static List<Employee> empList = Arrays.asList(new Employee(1, "Shifoo", "acc1", "IT", 25, 150000d),	new Employee(1, "Shifoo", "acc1", "IT", 25, 50000d), new Employee(1, "Shifoo", "acc1", "IT", 25, 450000d));
+	private static List<Person> personList = Arrays.asList(new Person(1,"punya","nayak",1000d,"male",40,100,Arrays.asList("reading","music")),new Person(2,"pankaj","prajapati",2000d,"male",30,120,Arrays.asList("cricket","music")));
 
 	public static void main(String[] args) {
 		iterateListUsingForEachLoop();
@@ -29,16 +29,16 @@ public class ForEachWithList {
 
 		// ex-01
 		System.out.println("\n traversing list using for loop");
-		for (int j = 0; j < empList.size(); j++) {
-			System.out.println(empList.get(j));
+		for (int j = 0; j < personList.size(); j++) {
+			System.out.println(personList.get(j));
 		}
 		// OR
-		for (Employee i : empList) {
+		for (Person i : personList) {
 			System.out.print(i + " ");
 		}
 		// or
-		empList.forEach(emp -> System.out.println(emp));
-		empList.forEach(System.out::println);
+		personList.forEach(emp -> System.out.println(emp));
+		personList.forEach(System.out::println);
 
 		// ex-2
 		List<String> alphabets = Arrays.asList("A", "B", "C", "D");
@@ -56,9 +56,9 @@ public class ForEachWithList {
 		});
 
 		// Ex-
-		empList.forEach(new Consumer<Employee>() {
+		personList.forEach(new Consumer<Person>() {
 			@Override
-			public void accept(Employee item) {
+			public void accept(Person item) {
 				System.out.print(item + " ");
 			}
 		});
@@ -67,15 +67,15 @@ public class ForEachWithList {
 		// way-02- traversing with Consumer interface implementation
 		System.out.println("\nConsumer impl Value::");
 		MyCustomConsumer consumer = new MyCustomConsumer();
-		empList.forEach(consumer);
+		personList.forEach(consumer);
 
 	}
 
 	public static void iterateListUsingIterator() {
 		System.out.println("\ntraversing list using Iterator");
-		Iterator<Employee> it = empList.iterator();
+		Iterator<Person> it = personList.iterator();
 		while (it.hasNext()) {
-			Employee i = it.next();
+			Person i = it.next();
 			System.out.println(i);
 		}
 	}
@@ -88,20 +88,20 @@ public class ForEachWithList {
 
 		// using lambda expression of jdk8
 		System.out.println("\ntraversing list using lambda");
-		empList.forEach(item -> {
+		personList.forEach(item -> {
 			// you can implement some business logic here..
 			System.out.print(item + " ");
 		});
 
 		System.out.println("Printing List with forEach");
-		empList.forEach(employee -> System.out.println(employee));
+		personList.forEach(employee -> System.out.println(employee));
 
 		System.out.println("\nPrinting List after Filtering");
-		empList.stream().filter(employee -> employee.getSalary() > 100000).forEach(System.out::println);
-		System.out.println(empList);
+		personList.stream().filter(employee -> employee.getSal() > 100000).forEach(System.out::println);
+		System.out.println(personList);
 
-		empList.stream().filter(employee -> employee.getSalary() > 100000).collect(Collectors.toList());
-		System.out.println(empList);
+		personList.stream().filter(employee -> employee.getSal() > 100000).collect(Collectors.toList());
+		System.out.println(personList);
 
 		// Ex-02
 		List<String> strList = Arrays.asList("A", "B", "C", "D");

@@ -23,8 +23,7 @@ import java.util.stream.IntStream;
 import java.util.stream.LongStream;
 import java.util.stream.Stream;
 
-import model.Employee;
-import model.User;
+import model.Person;
 
 public class CollectionObjectsWithStreamDemo {
 
@@ -78,8 +77,7 @@ public class CollectionObjectsWithStreamDemo {
 	//private static List<String> stringList = Arrays.asList("punya", "punyasmruti","pankaj kumar", "aswini k ssingh", "parthasarathi");
 	//private static List<String> namesList = Arrays.asList("punya", "kishore", "sai", "aswini");
 	
-	private static List<User> usersList = Arrays.asList(new User(19), new User(67), new User(50), new User(91));
-	private static List<Employee> employeeList = Arrays.asList(new Employee(1, "Shifoo", "acc1", "IT", 25, 150000d),new Employee(2, "Punya", "acc2", "IT", 40, 250000d));
+	private static List<Person> personList = Arrays.asList(new Person(1,"punya","nayak",1000d,"male",40,100,Arrays.asList("reading","music")),new Person(2,"pankaj","prajapati",2000d,"male",30,120,Arrays.asList("cricket","music")));
 	
 	//set type data
 	//private static Set<Byte> byteSet = new HashSet(byteList); //CE
@@ -89,7 +87,6 @@ public class CollectionObjectsWithStreamDemo {
 	private static Set<Double> doubleSet = new HashSet<>(doublelist);
 	private static Set<Character> charSet = new HashSet<>(charlist);
 	private static Set<String> stringSet = new HashSet<>(stringList);
-	private static Set<Employee> employeeSet = new HashSet<>(employeeList);
 	
 	//map type data
 	private static Map<String, Integer> unsortedMap = null;
@@ -1693,9 +1690,9 @@ private static void sortStringList() {
 	
 	private static void sortEmployeeById() {
 
-		Comparator<Employee> sortByIdComparator = new Comparator<Employee>() {
+		Comparator<Person> sortByIdComparator = new Comparator<Person>() {
 			@Override
-			public int compare(Employee emp1, Employee emp2) {
+			public int compare(Person emp1, Person emp2) {
 				return emp1.getId().compareTo(emp2.getId());
 				// return emp1.getId() - emp2.getId();
 			}
@@ -1706,106 +1703,106 @@ private static void sortStringList() {
 		// Comparator<Employee> sortByIdComparator3 = (Employee emp1, Employee emp2) ->
 		// emp1.getId() - emp2.getId(); //Ok
 
-		employeeList.sort(sortByIdComparator);
-		employeeList.forEach(System.out::println);
+		personList.sort(sortByIdComparator);
+		personList.forEach(System.out::println);
 		// OR
-		Collections.sort(employeeList, sortByIdComparator);
-		employeeList.forEach(System.out::println);
+		Collections.sort(personList, sortByIdComparator);
+		personList.forEach(System.out::println);
 		// or
-		employeeList.stream().sorted(sortByIdComparator).collect(Collectors.toList()).forEach(System.out::println);
+		personList.stream().sorted(sortByIdComparator).collect(Collectors.toList()).forEach(System.out::println);
 	}
 
 	private static void sortEmployeeByName() {
 
-		Comparator<Employee> sortByNameComparator = new Comparator<Employee>() {
+		Comparator<Person> sortByNameComparator = new Comparator<Person>() {
 			@Override
-			public int compare(Employee e1, Employee e2) {
-				return e1.getName().compareTo(e2.getName());
+			public int compare(Person e1, Person e2) {
+				return e1.getFirstName().compareTo(e2.getFirstName());
 			}
 		};
 
-		Comparator<Employee> sortByNameComparator1 = (Employee e1, Employee e2) -> e1.getName().compareTo(e2.getName());
-		Comparator<Employee> sortByNameComparator2 = (e1, e2) -> e1.getName().compareTo(e2.getName());
+		Comparator<Person> sortByNameComparator1 = (Person e1, Person e2) -> e1.getFirstName().compareTo(e2.getFirstName());
+		Comparator<Person> sortByNameComparator2 = (e1, e2) -> e1.getFirstName().compareTo(e2.getFirstName());
 
-		employeeList.sort(sortByNameComparator);
-		employeeList.forEach(System.out::println);
+		personList.sort(sortByNameComparator);
+		personList.forEach(System.out::println);
 		// OR
-		Collections.sort(employeeList, sortByNameComparator1);
-		employeeList.forEach(System.out::println);
+		Collections.sort(personList, sortByNameComparator1);
+		personList.forEach(System.out::println);
 		// or
-		employeeList.stream().sorted(sortByNameComparator2).collect(Collectors.toList()).forEach(System.out::println);
+		personList.stream().sorted(sortByNameComparator2).collect(Collectors.toList()).forEach(System.out::println);
 
 	}
 
 	private static void sortEmployeeByAge() {
 
 		// way-01 , using jdk7
-		Comparator<Employee> sortByAgeComparator1 = new Comparator<Employee>() {
+		Comparator<Person> sortByAgeComparator1 = new Comparator<Person>() {
 			@Override
-			public int compare(Employee emp1, Employee emp2) {
+			public int compare(Person emp1, Person emp2) {
 				return (int) (emp1.getAge() - emp2.getAge());
 			}
 		};
 
 		// using jdk8
-		Comparator<Employee> sortByAgeComparator2 = (Employee e1, Employee e2) -> e1.getAge() - e2.getAge();
-		Comparator<Employee> sortByAgeComparator3 = (e1, e2) -> e1.getAge().compareTo(e2.getAge());
+		Comparator<Person> sortByAgeComparator2 = (Person e1, Person e2) -> e1.getAge() - e2.getAge();
+		Comparator<Person> sortByAgeComparator3 = (e1, e2) -> e1.getAge().compareTo(e2.getAge());
 
-		employeeList.sort(sortByAgeComparator1);
-		employeeList.forEach(System.out::println);
+		personList.sort(sortByAgeComparator1);
+		personList.forEach(System.out::println);
 		// OR
 		// way-02 , using jdk7
-		Collections.sort(employeeList, sortByAgeComparator2);
-		employeeList.forEach(System.out::println);
+		Collections.sort(personList, sortByAgeComparator2);
+		personList.forEach(System.out::println);
 		// or
 		// way-03 , using jdk8
-		employeeList.sort(sortByAgeComparator3);
-		employeeList.forEach(System.out::println);
+		personList.sort(sortByAgeComparator3);
+		personList.forEach(System.out::println);
 		// OR
 		// way-04 , using jdk8
-		employeeList.stream().sorted(sortByAgeComparator3).collect(Collectors.toList()).forEach(System.out::println);
+		personList.stream().sorted(sortByAgeComparator3).collect(Collectors.toList()).forEach(System.out::println);
 
 	}
 
 	private static void sortEmployeeBySalary() {
 
-		Comparator<Employee> sortBySalComparator1 = new Comparator<Employee>() {
+		Comparator<Person> sortBySalComparator1 = new Comparator<Person>() {
 			@Override
-			public int compare(Employee emp1, Employee emp2) {
-				return (int) (emp1.getSalary() - emp2.getSalary());
+			public int compare(Person emp1, Person emp2) {
+				return (int) (emp1.getSal() - emp2.getSal());
 			}
 		};
 
-		Comparator<Employee> sortBySalComparator2 = (Employee e1, Employee e2) -> e1.getSalary().compareTo(e2.getSalary());
+		Comparator<Person> sortBySalComparator2 = (Person e1, Person e2) -> e1.getSal().compareTo(e2.getSal());
 
-		employeeList.sort(sortBySalComparator1);
-		// employeeList.sort(sortBySalComparator);
-		employeeList.forEach(System.out::println);
+		personList.sort(sortBySalComparator1);
+		// personList.sort(sortBySalComparator);
+		personList.forEach(System.out::println);
 		// OR
-		Collections.sort(employeeList, sortBySalComparator1);
-		employeeList.forEach(System.out::println);
+		Collections.sort(personList, sortBySalComparator1);
+		personList.forEach(System.out::println);
 		// OR
-		Collections.sort(employeeList, sortBySalComparator2);
-		employeeList.forEach(System.out::println);
+		Collections.sort(personList, sortBySalComparator2);
+		personList.forEach(System.out::println);
 		
-		Comparator<Employee> sortBySalComparator = (Employee e1, Employee e2) -> e1.getSalary().compareTo(e2.getSalary());
-		employeeList.sort(sortBySalComparator);
-		employeeList.forEach(System.out::println);
+		Comparator<Person> sortBySalComparator = (Person e1, Person e2) -> e1.getSal().compareTo(e2.getSal());
+		personList.sort(sortBySalComparator);
+		personList.forEach(System.out::println);
 		// OR
-		Collections.sort(employeeList, sortBySalComparator);
-		employeeList.forEach(System.out::println);
+		Collections.sort(personList, sortBySalComparator);
+		personList.forEach(System.out::println);
 		
 	}
 	
 	private static void sortEmployeeByAge2() {
-		Comparator<Employee> sortByAgeComparator = (e1, e2) -> e1.getAge().compareTo(e2.getAge());
-		employeeList.stream().sorted(sortByAgeComparator).collect(Collectors.toList()).forEach(System.out::println);
+		Comparator<Person> sortByAgeComparator = (e1, e2) -> e1.getAge().compareTo(e2.getAge());
+		personList.stream().sorted(sortByAgeComparator).collect(Collectors.toList()).forEach(System.out::println);
 	}
 
 
 	private static void convertEmplpoyeeListToMap() {
-		Comparator<Employee> sortBySalaryComparator = Comparator.comparingDouble(Employee::getSalary);
-		Map<String, Double> result1 = employeeList.stream().sorted(sortBySalaryComparator).collect(Collectors.toMap(Employee::getName, Employee::getSalary, (oldValue, newValue) -> oldValue, LinkedHashMap::new));
+		Comparator<Person> sortBySalaryComparator = Comparator.comparingDouble(Person::getSal);
+		Map<String, Double> result1 = personList.stream().sorted(sortBySalaryComparator).collect(Collectors.toMap(Person::getFirstName, Person::getSal, (oldValue, newValue) -> oldValue, LinkedHashMap::new));
 		System.out.println(" After sorting based on salary in desc : " + result1);
 
 	}
@@ -1813,22 +1810,22 @@ private static void sortStringList() {
 	private static void sortUsers() {
 
 		// Lambda expression for sorting by score
-		Comparator<User> c = (User user1, User user2) -> user1.getScore() - user2.getScore();
-		usersList.sort(c);
-		usersList.forEach((user) -> System.out.println(user));
+		Comparator<Person> c = (Person user1, Person user2) -> user1.getAge() - user2.getAge();
+		personList.sort(c);
+		personList.forEach((user) -> System.out.println(user));
 
 		// sorting in asc
-		List<User> sortedUsersInAsc = usersList.stream().sorted(Comparator.comparing(User::getScore)).collect(Collectors.toList());
+		List<Person> sortedUsersInAsc = personList.stream().sorted(Comparator.comparing(Person::getAge)).collect(Collectors.toList());
 		sortedUsersInAsc.forEach(System.out::print);
 
 		// sorting in desc order
 		System.out.println();
-		List<User> sortedUsersInDesc2 = usersList.stream().sorted(Comparator.comparing(User::getScore).reversed()).collect(Collectors.toList());
+		List<Person> sortedUsersInDesc2 = personList.stream().sorted(Comparator.comparing(Person::getAge).reversed()).collect(Collectors.toList());
 		sortedUsersInDesc2.forEach(System.out::print);
 
 		// sorting in asc
-		Collections.sort(usersList, Comparator.comparingDouble((User user) -> user.getScore()));
-		System.out.println(usersList);
+		Collections.sort(personList, Comparator.comparingDouble((Person user) -> user.getAge()));
+		System.out.println(personList);
 
 	}
 }

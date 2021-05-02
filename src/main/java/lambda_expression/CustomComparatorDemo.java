@@ -6,14 +6,12 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import model.Employee;
 import model.Person;
 
 public class CustomComparatorDemo {
 	
 	private static List<String> namesList = Arrays.asList("Mahesh","Suresh","Naresh","Kalpesh ");
-	private static List<Employee> employeeList = Arrays.asList(new Employee(1,"Shifoo","acc1","IT",25, 150000d),	new Employee(2,"Punya","acc2","IT",40, 250000d));
-	private static List<Person> personList = Arrays.asList(new Person("Tom Jones", "abc"), new Person("Harry Major", "bcw"),new Person("Harry Major", "mnf"));
+	private static List<Person> personList = Arrays.asList();
 	
 	private static Comparator<Integer> comparator1 = new Comparator<Integer>() {
 		@Override
@@ -80,13 +78,13 @@ public class CustomComparatorDemo {
 	public static void sortEmployeesByName() {
 
 		// only gathering the employee names and sorting in natural order.
-		List<String> empNamesList = employeeList.stream().map(Employee::getName).collect(Collectors.toList());
+		List<String> empNamesList = personList.stream().map(Person::getFirstName).collect(Collectors.toList());
 		empNamesList.sort(Comparator.naturalOrder());
 		empNamesList.forEach(System.out::println);
 
-		Comparator<Employee> empNameComparator = Comparator.comparing(Employee::getName).reversed();
-		Collections.sort(employeeList, empNameComparator);
-		employeeList.forEach(System.out::println);
+		Comparator<Person> empNameComparator = Comparator.comparing(Person::getFirstName).reversed();
+		Collections.sort(personList, empNameComparator);
+		personList.forEach(System.out::println);
 
 		// java8
 		personList.sort(Comparator.comparing(Person::getLastName).thenComparing(Person::getFirstName));
@@ -104,40 +102,40 @@ public class CustomComparatorDemo {
 		System.out.println(personList);
 
 		// Comparator with sort key null and using nullsFirst()
-		Comparator<Employee> empNameComparator5 = Comparator.comparing(Employee::getName,Comparator.nullsFirst(String::compareTo));
-		Collections.sort(employeeList, empNameComparator5);
-		employeeList.forEach(System.out::println);
+		Comparator<Person> personFirstNameComparator5 = Comparator.comparing(Person::getFirstName,Comparator.nullsFirst(String::compareTo));
+		Collections.sort(personList, personFirstNameComparator5);
+		personList.forEach(System.out::println);
 
 		// Comparator with sort key null and using nullsLast()
-		Comparator<Employee> empNameComparator6 = Comparator.comparing(Employee::getName,Comparator.nullsLast(String::compareTo));
-		Collections.sort(employeeList, empNameComparator6);
-		employeeList.forEach(System.out::println);
+		Comparator<Person> empNameComparator6 = Comparator.comparing(Person::getFirstName,Comparator.nullsLast(String::compareTo));
+		Collections.sort(personList, empNameComparator6);
+		personList.forEach(System.out::println);
 
 		// ex--01 using jdk7, using in line comparator
-		Collections.sort(employeeList, new Comparator<Employee>() {
+		Collections.sort(personList, new Comparator<Person>() {
 			@Override
-			public int compare(Employee e1, Employee e2) {
+			public int compare(Person e1, Person e2) {
 				// return (e1.getName().compareTo(e2.getName()));
 				// return (e2.getName().compareTo(e1.getName()));
 				return (e1.getAge().compareTo(e2.getAge()));
 				// return (e2.getAge().compareTo(e1.getAge()));
 			}
 		});
-		employeeList.forEach(System.out::println);
+		personList.forEach(System.out::println);
 
 		// ex-02 , using jdk7 external comparator
-		Collections.sort(employeeList, new EmployeeComparator());
-		employeeList.forEach(System.out::println);
+		Collections.sort(personList, new PersonComparator());
+		personList.forEach(System.out::println);
 
 		// ex-03 - Comparator creation using static method comparing()
-		Comparator<Employee> empNameComparator2 = Comparator.comparing(Employee::getName).thenComparing(Employee::getAge);
-		Collections.sort(employeeList, empNameComparator2);
-		employeeList.forEach(System.out::println);
+		Comparator<Person> empNameComparator2 = Comparator.comparing(Person::getFirstName).thenComparing(Person::getAge);
+		Collections.sort(personList, empNameComparator2);
+		personList.forEach(System.out::println);
 
 		// ex-04 , using jdk8 Defining a Comparator using lambda expression
-		Comparator<Employee> empNameComparator4 = (Employee emp1, Employee emp2) -> {return (emp1.getName().compareTo(emp2.getName()));};
-		Collections.sort(employeeList, empNameComparator4);
-		employeeList.forEach(System.out::println);
+		Comparator<Person> empNameComparator4 = (Person emp1, Person emp2) -> {return (emp1.getFirstName().compareTo(emp2.getFirstName()));};
+		Collections.sort(personList, empNameComparator4);
+		personList.forEach(System.out::println);
 	}
 }
 

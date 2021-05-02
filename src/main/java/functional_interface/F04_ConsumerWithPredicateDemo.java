@@ -34,7 +34,7 @@ public class F04_ConsumerWithPredicateDemo {
 	public static void main(String[] args) {
 		
 		//ex-01 ,  using consumer with predicate demo.
-		List<Person> list = Arrays.asList(new Person("punya", "nayak", 1000D, "male", 200, Arrays.asList("Music")));
+		List<Person> list = Arrays.asList(new Person(1,"punya", "nayak", 1000D, "male", 200, 40,Arrays.asList("Music")));
 		list.forEach(personConsumer);
 		
 		List<Person> list2 = PersonRepository.getAllPesons();

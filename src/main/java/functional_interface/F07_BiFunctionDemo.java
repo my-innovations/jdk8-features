@@ -28,7 +28,7 @@ public class F07_BiFunctionDemo {
 		// ex-1
 		System.out.println(concatBiFunction.apply("java-8", "features"));
 		// ex-2
-		Map<String, Double> map = personFirstnameWithSalaryBiFunction.apply(Arrays.asList(new Person("punya", "nayak", 1000D,"male", 200, Arrays.asList("cricket"))), personGenderIsMalePredicate);
+		Map<String, Double> map = personFirstnameWithSalaryBiFunction.apply(Arrays.asList(new Person(1,"punya", "nayak", 1000D,"male", 200, 40,Arrays.asList("cricket"))), personGenderIsMalePredicate);
 		System.out.println(map);
 	}
 }

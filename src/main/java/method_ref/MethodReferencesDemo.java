@@ -151,15 +151,15 @@ public class MethodReferencesDemo {
 		System.out.println(fun2.apply("java"));
 		System.out.println(function02.apply("punya"));
 		
-		predicate01.test(new Person("punya", "nayak", 1000D, "male", 200,Arrays.asList("Music", "cricket")));
+		predicate01.test(new Person(1,"punya", "nayak", 1000D, "male", 30,200,Arrays.asList("Music", "cricket")));
 		System.out.println(predicate01.test(PersonRepository.getPerson()));
 		
 		//EX-  predefined functional interface's single abstract method points to static method of Method_References_demo class.
-		predicate02.test(new Person("punya", "nayak", 1000D, "male", 200,Arrays.asList("Music", "cricket")));
+		predicate02.test(new Person(1,"punya", "nayak", 1000D, "male",30, 200,Arrays.asList("Music", "cricket")));
 		System.out.println(predicate02.test(PersonRepository.getPerson()));
 		
 		//EX - predefined functional interface's single abstract method points to static method of Method_References_demo class.
-		biPredicate01.test(new Person("punya", "nayak", 1000D, "male", 200,Arrays.asList("Music", "cricket")), 100);
+		biPredicate01.test(new Person(1,"punya", "nayak", 1000D, "male", 35,200,Arrays.asList("Music", "cricket")), 100);
 		System.out.println(biPredicate01.test(PersonRepository.getPerson(),125));
 
 		System.out.println(App02_Method_References_03_static_method.compare(10, 20));

@@ -13,7 +13,7 @@ public class F08_SupplierDemo {
 	//it returns the output data.
 	//it is having get()
 
-	private static Supplier<Person> personSupplier1 = () -> new Person("punya", "nayak", 1000D, "male", 200,Arrays.asList("Music", "cricket"));
+	private static Supplier<Person> personSupplier1 = () -> new Person(1,"punya", "nayak", 1000D, "male", 40,200,Arrays.asList("Music", "cricket"));
 	private static Supplier<Person> personSupplier2 = () -> PersonRepository.getPerson();
 	private static Supplier<List<Person>> personsListSupplier = () -> PersonRepository.getAllPesons();
 	

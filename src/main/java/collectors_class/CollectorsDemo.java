@@ -17,8 +17,42 @@ import model.Product;
 public class CollectorsDemo {
 
 	//some dummy data 
-	private static Double[] doubleArrayWrapperType = { 2.5d, 7.8d, 4.9d };
+	// primitive type array
+	private static byte[] byteArrayPrimitiveType = { 10, 5, -44, -99, 47, 19, -35 };
+	//private static byte[] byteArrayPrimitiveType2 = new byte[]{ 10, 5, -44, -99, 47, 19, -35 }; //OK
+	private static short[] shortArrayPrimitiveType = { 10, 5, -44, -99, 47, 198, -35 };
+	//private static short[] shortArrayPrimitiveType2 = new short[]{ 10, 5, -44, -99, 47, 198, -35 }; //OK
+	private static int[] intArrayPrimitiveType = { 1, 2, 3, 4, 15, 6, 7, 8, 9, 10 };
+	//private static int[] intArrayPrimitiveType = new int[] { 1, 34, 78, 90, 27, 45 }; //OK
+	private static long[] longArrayPrimitiveType = { 1, 34, 78, 90, 27, 45 }; //OK
+	//private static long[] longArrayPrimitiveType2 = new long[] { 1, 34, 78, 90, 27, 45 };
+	private static float[] floatArrayPrimitiveType = { 1.5f, 34.8f, 78.2f, 90.0f, 27.78f, 45.31f }; //OK
+	//private static float[] floatArrayPrimitiveType2 = new float[] { 1.5f, 34.8f, 78.2f, 90.0f, 27.78f, 45.31f };
+	private static double[] doubleArrayPrimitiveType = { 10.6d, 5.8d, -44.7d, -99.1d, 47.4d, 198.9d, -35.7f };
+	//private static double[] doubleArrayPrimitive = new double[] { 1, 34, 78, 90, 27, 45 }; //Ok
+	private static char[] charArrayPrimitiveType = { 'a', 'm', 'y', 'u' };
+	//private static char[] charArrayPrimitiveType2 = new char[] { 'a', 'm', 'y', 'u' }; //OK
+	
+	//wrapper type array
+	private static Byte[] byteArrayWrapperType = { 10, 5, -44, -99, 47, 19, -35 };
+	//private static Byte[] byteArrayWrapperType2 = new Byte[]{ 10, 5, -44, -99, 47, 19, -35 }; //OK
+	private static Short[] shortArrayWrapperType = { 10, 5, -44, -99, 47, 198, -35 };
+	//private static Short[] shortArrayWrapperType2 = new Short[]{ 10, 5, -44, -99, 47, 198, -35 }; //OK
+	private static Integer[] integerArrayWrapperType = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
+	//private static Integer[] integerArrayWrapperType2 = new Integer[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };//OK
+	private static Long[] longArrayWrapperType =  { 1l, 34l, 78l, 90l, 27l, 45l };
+	//private static Long[] longArrayWrapperType2 = new Long[] { 1l, 34l, 78l, 90l, 27l, 45l }; //OK
+	private static Float[] floatArrayWrapperType = { 1.5f, 34.8f, 78.2f, 90.0f, 27.78f, 45.31f };
+	//private static Float[] floatArrayWrapperType2 = new Float[] { 1.5f, 34.8f, 78.2f, 90.0f, 27.78f, 45.31f }; //OK
+	private static Double[] doubleArrayWrapperType =  { 1d, 34d, 78d, 90d, 27d, 45d };
+	//private static Double[] doubleArrayWrapperType2 = new Double[] { 1d, 34d, 78d, 90d, 27d, 45d }; //OK
+	private static Character[] charArrayWrapperType = { 'a', 'm', 'y', 'u' };
+	// private static Character[] charArrayWrapperType2 = new Character[] { 'a', 'm', 'y', 'u' }; //OK
+	private static String[] stringArray = { "punya", "Partha", "Aswini", "punya","Arabind" };
+	//private static String[] stringArray2 = new String[]{ "punya", "Partha", "Aswini", "punya","Arabind" }; //Ok
 	private static List<String> namesList = Arrays.asList("Jon", "Ajeet", "Steve", "Ajeet", "Jon", "Ajeet");
+	
+	
 	private static List<Product> productsList = Arrays.asList(
 		new Product(1, "HP Laptop", 25000f),
 		new Product(2, "Dell Laptop", 30000f), 
@@ -28,9 +62,10 @@ public class CollectorsDemo {
 
 	public static void main(String[] args) {
 		
-		summationOfAllItemsOfDoubleArray();
-		multiplicationOfAllItemsOfDoubleArray();
+		summationOfAllItemsOfArray();
+		multiplicationOfAllItemsOfArray();
 		findNoOfOccurancesOfEachItemInAnArray();
+		
 		gatherAllProductPricesInList();
 		sumOfAllpricesFromAllProducts();
 		getProductIdWithproductName();
@@ -46,32 +81,33 @@ public class CollectorsDemo {
 		
 	}
 
-	public static void summationOfAllItemsOfDoubleArray() {
-		
-		//way-01
-		Double sumRes = Stream.of(doubleArrayWrapperType)
-				.reduce(0.0, (Double d1, Double d2) -> d1 + d2);
-		// Double d = Collectors.computeFinalSum(doubleArrayprimitive);
-		System.out.println(sumRes);
-		
-		//way-02
-		Double res = (Double) Stream.of(doubleArrayWrapperType)
-				.collect(Collectors.reducing(0d, (num1, num2) -> num1 + num2));
-		System.out.println(res);
+	public static void summationOfAllItemsOfArray() {
+
+		//Integer sumRes1 = Stream.of(integerArrayWrapperType).reduce(0, (Integer d1, Integer d2) -> d1 + d2); //OK
+		// Integer sumRes1 = Collectors.computeFinalSum(IntegerArrayWrapperType);
+		Integer sumRes1 = (Integer) Stream.of(integerArrayWrapperType).collect(Collectors.reducing(0, (Integer num1, Integer num2) -> num1 + num2));
+		System.out.println(sumRes1);
+
+		Long sumRes2 = Stream.of(longArrayWrapperType).reduce(0L, (Long d1, Long d2) -> d1 + d2);
+		System.out.println(sumRes2);
+
+		Float sumRes3 = Stream.of(floatArrayWrapperType).reduce(0f, (Float d1, Float d2) -> d1 + d2);
+		System.out.println(sumRes3);
+
+		//Double sumRes4 = Stream.of(doubleArrayWrapperType).reduce(0.0, (Double d1, Double d2) -> d1 + d2); //Ok
+		Double sumRes4 = (Double) Stream.of(doubleArrayWrapperType).collect(Collectors.reducing(0d, (Double num1, Double num2) -> num1 + num2));
+		System.out.println(sumRes4);
 	}
 	
-	public static void multiplicationOfAllItemsOfDoubleArray() {
+	public static void multiplicationOfAllItemsOfArray() {
 		
 		//way-01
-		Double d = Stream.of(doubleArrayWrapperType)
-				.reduce(1.0, (Double d1, Double d2) -> d1 * d2);
-		// Double d = Collectors.computeFinalSum(doubleArrayprimitive);
+		Double d = Stream.of(doubleArrayWrapperType).reduce(1.0, (Double d1, Double d2) -> d1 * d2);
 		System.out.println(d);
 		
 		//way-02
 		//product of all items of the array
-		Double res = (Double) Stream.of(doubleArrayWrapperType)
-				.collect(Collectors.reducing(1d, (num1, num2) -> num1 * num2));
+		Double res = (Double) Stream.of(doubleArrayWrapperType).collect(Collectors.reducing(1d, (num1, num2) -> num1 * num2));
 		System.out.println(res);
 		
 	}
@@ -89,6 +125,15 @@ public class CollectorsDemo {
 				.collect(Collectors.groupingBy(item -> item, Collectors.counting()));
 		System.out.println(counts);
 	}
+	
+	
+	/**
+	 * ########################################
+	 * Using Custom DTO
+	 * ########################################
+	 * 
+	 */
+	
 
 	public static void gatherAllProductPricesInList() {
 
