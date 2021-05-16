@@ -1,4 +1,4 @@
-package collectors_class;
+package stream_api;
 
 import java.util.Arrays;
 import java.util.Comparator;
@@ -14,7 +14,7 @@ import java.util.stream.Stream;
 
 import model.Product;
 
-public class CollectorsDemo {
+public class StreamWithCollectorsDemo {
 
 	//some dummy data 
 	// primitive type array
@@ -62,10 +62,10 @@ public class CollectorsDemo {
 
 	public static void main(String[] args) {
 		
+		//using Stream.reduce or Collectors.reducing
 		summationOfAllItemsOfArray();
 		multiplicationOfAllItemsOfArray();
 		findNoOfOccurancesOfEachItemInAnArray();
-		
 		gatherAllProductPricesInList();
 		sumOfAllpricesFromAllProducts();
 		getProductIdWithproductName();
@@ -82,17 +82,20 @@ public class CollectorsDemo {
 	}
 
 	public static void summationOfAllItemsOfArray() {
-
-		//Integer sumRes1 = Stream.of(integerArrayWrapperType).reduce(0, (Integer d1, Integer d2) -> d1 + d2); //OK
-		// Integer sumRes1 = Collectors.computeFinalSum(IntegerArrayWrapperType);
-		Integer sumRes1 = (Integer) Stream.of(integerArrayWrapperType).collect(Collectors.reducing(0, (Integer num1, Integer num2) -> num1 + num2));
-		System.out.println(sumRes1);
+		
+		Integer sumRes5 = Stream.of(integerArrayWrapperType).reduce(0, (Integer d1, Integer d2) -> d1 + d2);
+		System.out.println(sumRes5);
 
 		Long sumRes2 = Stream.of(longArrayWrapperType).reduce(0L, (Long d1, Long d2) -> d1 + d2);
 		System.out.println(sumRes2);
 
 		Float sumRes3 = Stream.of(floatArrayWrapperType).reduce(0f, (Float d1, Float d2) -> d1 + d2);
 		System.out.println(sumRes3);
+		
+		//Integer sumRes1 = Stream.of(integerArrayWrapperType).reduce(0, (Integer d1, Integer d2) -> d1 + d2); //OK
+		// Integer sumRes1 = Collectors.computeFinalSum(IntegerArrayWrapperType);
+		Integer sumRes1 = (Integer) Stream.of(integerArrayWrapperType).collect(Collectors.reducing(0, (Integer num1, Integer num2) -> num1 + num2));
+		System.out.println(sumRes1);
 
 		//Double sumRes4 = Stream.of(doubleArrayWrapperType).reduce(0.0, (Double d1, Double d2) -> d1 + d2); //Ok
 		Double sumRes4 = (Double) Stream.of(doubleArrayWrapperType).collect(Collectors.reducing(0d, (Double num1, Double num2) -> num1 + num2));

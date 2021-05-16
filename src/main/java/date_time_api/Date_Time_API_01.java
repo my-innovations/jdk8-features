@@ -21,33 +21,34 @@ import java.util.Date;
 public class Date_Time_API_01 {
 
 	public static void main(String[] args) throws InterruptedException {
-
-		// Get the current date and time
-		LocalDateTime currentTime = LocalDateTime.now();
-		System.out.println("Current DateTime: " + currentTime);
-
-		LocalDate date1 = currentTime.toLocalDate();
-		System.out.println("date1: " + date1);
-
-		Month month = currentTime.getMonth();
-		int day = currentTime.getDayOfMonth();
-		int seconds = currentTime.getSecond();
-
-		System.out.println("Month: " + month + "day: " + day + "seconds: " + seconds);
 		
-		LocalDateTime localDateTime2 = LocalDateTime.now(); 
-		System.out.println(localDateTime2);
+		// Read more:
+		// http://java67.blogspot.com/2012/12/how-to-convert-sql-date-to-util-date.html#ixzz4CxzHTqrG
+		// https://javarevisited.blogspot.com/2015/03/20-examples-of-date-and-time-api-from-Java8.html#axzz6ue9olbTT
 
-		LocalDateTime date2 = currentTime.withDayOfMonth(10).withYear(2012);
-		System.out.println("date2: " + date2);
+		LocalDateTime localDateTime1 = LocalDateTime.now();
+		System.out.println("localDateTime1 : " + localDateTime1); //2021-05-12T19:37:12.925
+		
+		//extracting month,date from localDateTime.
+		Month month = localDateTime1.getMonth();
+		int day = localDateTime1.getDayOfMonth();
+		int seconds = localDateTime1.getSecond();
+		int yr = localDateTime1.getYear();
+		System.out.println("Year:"+yr +" Month: " + month + " day: " + day + " seconds: " + seconds); //Month: MAYday: 12seconds: 12
+		
+		LocalDateTime localDateTime2 = localDateTime1.withDayOfMonth(10).withYear(2012);
+		System.out.println("localDateTime2: " + localDateTime2); //2012-05-10T19:38:26.877
+		
+		//converting localDateTime to localDate
+		LocalDate localDate1 = localDateTime1.toLocalDate();
+		System.out.println("localDate1 : " + localDate1);//localDate1 : 2021-05-12
 
-		// 12 december 2014
 		LocalDate date3 = LocalDate.of(2014, Month.DECEMBER, 12);
-		System.out.println("date3: " + date3);
+		System.out.println("date3: " + date3); // 2014-12-12
 
 		// 22 hour 15 minutes
-		LocalTime date4 = LocalTime.of(22, 15);
-		System.out.println("date4: " + date4);
+		LocalTime localTime1 = LocalTime.of(22, 15);
+		System.out.println("date4: " + localTime1);
 
 		// parse a string
 		LocalTime date5 = LocalTime.parse("20:15:30");
@@ -104,7 +105,7 @@ public class Date_Time_API_01 {
 		System.out.println("Current date: " + date71);
 
 		// add 1 month to the current date
-		LocalDate date72 = date1.plus(1, ChronoUnit.MONTHS);
+		LocalDate date72 = localDate1.plus(1, ChronoUnit.MONTHS);
 		System.out.println("Next month: " + date72);
 
 		Period period = Period.between(date72, date71);
@@ -123,11 +124,11 @@ public class Date_Time_API_01 {
 		System.out.println("Current date: " + date19);
 
 		// get the next tuesday
-		LocalDate nextTuesday = date1.with(TemporalAdjusters.next(DayOfWeek.TUESDAY));
+		LocalDate nextTuesday = localDate1.with(TemporalAdjusters.next(DayOfWeek.TUESDAY));
 		System.out.println("Next Tuesday on : " + nextTuesday);
 
 		// get the second saturday of next month
-		LocalDate firstInYear = LocalDate.of(date1.getYear(), date1.getMonth(), 1);
+		LocalDate firstInYear = LocalDate.of(localDate1.getYear(), localDate1.getMonth(), 1);
 		LocalDate secondSaturday = firstInYear.with(TemporalAdjusters.nextOrSame(DayOfWeek.SATURDAY))
 				.with(TemporalAdjusters.next(DayOfWeek.SATURDAY));
 		System.out.println("Second Saturday on : " + secondSaturday);
@@ -141,8 +142,8 @@ public class Date_Time_API_01 {
 		Instant now = currentDate.toInstant();
 		ZoneId currentZone01 = ZoneId.systemDefault();
 
-		LocalDateTime localDateTime = LocalDateTime.ofInstant(now, currentZone01);
-		System.out.println("Local date: " + localDateTime);
+		LocalDateTime localDateTime3 = LocalDateTime.ofInstant(now, currentZone01);
+		System.out.println("Local date: " + localDateTime3);
 
 		ZonedDateTime zonedDateTime = ZonedDateTime.ofInstant(now, currentZone01);
 		System.out.println("Zoned date: " + zonedDateTime);
@@ -191,9 +192,9 @@ public class Date_Time_API_01 {
 		// app-2
 		DateTimeFormatter formatter1 = DateTimeFormatter.ofPattern("d-MMM-yyyy");
 		String date101 = "16-Aug-2016";
-		LocalDate localDate1 = LocalDate.parse(date101, formatter1);
-		System.out.println(localDate1); // default, print ISO_LOCAL_DATE
-		System.out.println(formatter.format(localDate1));
+		LocalDate localDate3 = LocalDate.parse(date101, formatter1);
+		System.out.println(localDate3); // default, print ISO_LOCAL_DATE
+		System.out.println(formatter.format(localDate3));
 
 		// app-3
 		String date21 = "2016-08-16";
@@ -245,8 +246,4 @@ public class Date_Time_API_01 {
 		LocalDate localDate8 = result.toLocalDate();
 		System.out.println("LocalDate : " + localDate8);
 	}
-
-	// Read more:
-	// http://java67.blogspot.com/2012/12/how-to-convert-sql-date-to-util-date.html#ixzz4CxzHTqrG
-
 }

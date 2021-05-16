@@ -17,6 +17,7 @@ import java.util.OptionalInt;
 import java.util.OptionalLong;
 import java.util.Set;
 import java.util.function.BinaryOperator;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.DoubleStream;
 import java.util.stream.IntStream;
@@ -129,6 +130,7 @@ public class CollectionObjectsWithStreamDemo {
 		countNoOfOccurancesOfPerticularItemInArray();
 		countNoOfOccurancesOfEachItemInArray();
 		countNoOfOccurancesOfEachItemwithRangeInArray();
+		maxOccuranceofAnItemInAnArray();
 		
 		convertStringToCharArray();
 		convertArrayToList();
@@ -167,8 +169,6 @@ public class CollectionObjectsWithStreamDemo {
 		/**
 		 * ######## Working Set ##################
 		 */
-
-
 		
 		/**
 		 * ######## Working with Map ##################
@@ -185,6 +185,16 @@ public class CollectionObjectsWithStreamDemo {
 
 	}// main
 	
+	private static void maxOccuranceofAnItemInAnArray() {
+		
+	Map<Integer, Long> map = Arrays.stream(intArrayPrimitiveType).boxed().collect(Collectors.groupingBy(Function.identity(), Collectors.counting()));
+	int item = map.entrySet().stream().max((first, second) -> {
+	        return (int) (first.getValue() - second.getValue());
+	    }).get().getKey();
+	System.out.println(item);
+		
+	}
+
 	/**
 	 *  ################################################ Working with primitive and wrapper types array ##########################################################################################################################################
 	 * 
@@ -293,7 +303,6 @@ public class CollectionObjectsWithStreamDemo {
 		
 		Stream.of(doubleArrayWrapperType).forEachOrdered(System.out::print);
 				
-
 		System.out.println();
 		Stream<String> stream4 = Stream.of(stringArray);
 		stream4.forEach(x -> System.out.print(x+" "));
@@ -390,17 +399,15 @@ public class CollectionObjectsWithStreamDemo {
 
 	private static void sortAnyArray() {
 		
-		
 		// way-01 , sorting byte array in ascending order
 		Arrays.sort(byteArrayPrimitiveType);
 		System.out.println("byte arr after sort:" + Arrays.toString(byteArrayPrimitiveType));
 		
 		Stream.of(byteArrayPrimitiveType).sorted().forEach(System.out::println);;
+		Stream.of(byteArrayWrapperType).sorted().forEach(System.out::println);;
 
 		Arrays.sort(byteArrayWrapperType);
 		System.out.println("byte arr after sort:" + Arrays.toString(byteArrayWrapperType));
-		
-		Stream.of(byteArrayWrapperType).sorted().forEach(System.out::println);;
 		
 		//way-02
 		Comparator<Byte> byteComparator1 = new Comparator<Byte>() {
@@ -422,7 +429,6 @@ public class CollectionObjectsWithStreamDemo {
 		Arrays.stream(byteArrayWrapperType).sorted().distinct().forEach(System.out::println);
 		
 		//way-03
-		
 		Stream.of(byteArrayWrapperType).sorted().forEach(System.out::println);;
 		Stream.of(byteArrayWrapperType).sorted(byteComparator1).forEach(System.out::println);;
 		Stream.of(byteArrayWrapperType).sorted(byteComparator2).forEach(System.out::println);;
@@ -436,6 +442,13 @@ public class CollectionObjectsWithStreamDemo {
 
 		Arrays.sort(shortArrayWrapperType);
 		System.out.println(Arrays.toString(shortArrayWrapperType));
+		
+		Stream.of(shortArrayPrimitiveType).sorted().forEach(System.out::println);;
+		Stream.of(shortArrayWrapperType).sorted().forEach(System.out::println);;
+		Stream.of(shortArrayPrimitiveType).sorted().forEach(System.out::println);;
+		Stream.of(shortArrayPrimitiveType).sorted().distinct().forEach(System.out::println);;
+		Stream.of(shortArrayWrapperType).sorted().forEach(System.out::println);;
+		Stream.of(shortArrayWrapperType).sorted().distinct().forEach(System.out::println);;
 		
 		Comparator<Short> shortComparator1 = new Comparator<Short>() {
 			@Override
@@ -457,10 +470,6 @@ public class CollectionObjectsWithStreamDemo {
 		Arrays.stream(shortArrayWrapperType).sorted().distinct().forEach(System.out::println);
 		
 		//way-03
-		Stream.of(shortArrayPrimitiveType).sorted().forEach(System.out::println);;
-		Stream.of(shortArrayPrimitiveType).sorted().distinct().forEach(System.out::println);;
-		Stream.of(shortArrayWrapperType).sorted().forEach(System.out::println);;
-		Stream.of(shortArrayWrapperType).sorted().distinct().forEach(System.out::println);;
 		Stream.of(shortArrayWrapperType).sorted(shortComparator1).forEach(System.out::println);
 		Stream.of(shortArrayWrapperType).sorted(shortComparator2).forEach(System.out::println);;
 		Stream.of(shortArrayWrapperType).sorted(shortComparator3).forEach(System.out::println);;
@@ -510,6 +519,7 @@ public class CollectionObjectsWithStreamDemo {
 		//display first item after sorting
 		System.out.println();
 		Stream.of(stringArray).sorted().findFirst().ifPresent(System.out::println);
+		Stream.of(intArrayPrimitiveType).sorted().forEach(System.out::println);
 		
 		//****************************************************************************
 		Arrays.sort(intArrayPrimitiveType);
@@ -548,7 +558,7 @@ public class CollectionObjectsWithStreamDemo {
 		Arrays.stream(integerArrayWrapperType).sorted(intComparator2).distinct().forEach(System.out::println);
 		Arrays.stream(integerArrayWrapperType).sorted(intComparator3).distinct().forEach(System.out::println);
 		
-		Stream.of(intArrayPrimitiveType).sorted().forEach(System.out::println);
+		
 		Stream.of(integerArrayWrapperType).sorted(intComparator1).forEach(System.out::println);
 		Stream.of(integerArrayWrapperType).sorted(intComparator2).forEach(System.out::println);
 		Stream.of(integerArrayWrapperType).sorted(intComparator3).forEach(System.out::println);
@@ -615,8 +625,6 @@ public class CollectionObjectsWithStreamDemo {
 		Stream.of(longArrayWrapperType).sorted();
 		Stream.of(longArrayWrapperType).sorted(longComparator);
 		
-		
-		
 		//****************************************************************************
 		
 		Arrays.sort(floatArrayPrimitiveType); // default sort
@@ -672,7 +680,6 @@ public class CollectionObjectsWithStreamDemo {
 		list022.add(12L);
 		list022.add(33l);
 		Collections.sort(list022, floatComparator);
-		
 		
 		//****************************************************************************
 		
@@ -772,12 +779,10 @@ public class CollectionObjectsWithStreamDemo {
 		};
 
 		Arrays.sort(stringArray, sortByLengthComparator);
-		
-		
 	}
 	
 	
-private static void find_max_min_sum_avg_From_any_Array() {
+	private static void find_max_min_sum_avg_From_any_Array() {
 	
 		//summation
 		
@@ -945,7 +950,7 @@ private static void find_max_min_sum_avg_From_any_Array() {
 	}
 	
 	
-private static void countNoOfOccurancesOfEachItemInArray() {
+	private static void countNoOfOccurancesOfEachItemInArray() {
 		
 		// way-01
 		List<Integer> list = Arrays.asList(integerArrayWrapperType);
@@ -1804,7 +1809,6 @@ private static void sortStringList() {
 		Comparator<Person> sortBySalaryComparator = Comparator.comparingDouble(Person::getSal);
 		Map<String, Double> result1 = personList.stream().sorted(sortBySalaryComparator).collect(Collectors.toMap(Person::getFirstName, Person::getSal, (oldValue, newValue) -> oldValue, LinkedHashMap::new));
 		System.out.println(" After sorting based on salary in desc : " + result1);
-
 	}
 
 	private static void sortUsers() {
@@ -1826,6 +1830,5 @@ private static void sortStringList() {
 		// sorting in asc
 		Collections.sort(personList, Comparator.comparingDouble((Person user) -> user.getAge()));
 		System.out.println(personList);
-
 	}
 }
