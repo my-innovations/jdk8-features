@@ -23,6 +23,9 @@ public class ForEachWithList {
 	public static void main(String[] args) {
 		iterateListUsingForEachLoop();
 		findUniqueNamesFromList();
+		
+		
+		
 	}
 
 	public static void iterateListUsingForEachLoop() {

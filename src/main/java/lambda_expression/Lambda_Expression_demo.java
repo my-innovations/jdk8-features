@@ -2,12 +2,17 @@ package lambda_expression;
 
 import static java.lang.System.out;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.concurrent.Callable;
 import java.util.function.IntBinaryOperator;
 import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 import model.Person;
 
@@ -18,79 +23,91 @@ import model.Person;
 //use return keyword. You must use return
 //keyword when lambda expression contains multiple statements.
 
-@FunctionalInterface
-interface Circle {
-	double get(double radius);
-}
-
-//functional interface
-interface Sayable {
-	public String say();
-}
-
 //Java Lambda Expression with no parameter
-@FunctionalInterface
+@FunctionalInterface // optional
 interface MyFunctionalInterface01 {
-	// A method with no parameter
-	public void sayHello();
+	// single abstract method with no parameter and not returns anything.
+	public abstract void sayHello();
 }
 
-/* This is lambdaExample */
-interface interface1 {
-	public String say(String name);
+@FunctionalInterface // optional
+interface MyFunctionalInterface02 {
+	// single abstract method with no parameter and returns string.
+	public abstract String sayHello();
 }
 
 @FunctionalInterface
-interface MyFunctionalInterface02 {
-	// A method with single parameter
-	public int incrementByFive(int a);
+interface MyFunctionalInterface03 {
+	public abstract void sayHello(String message);
+}
+
+@FunctionalInterface
+interface MyFunctionalInterface04 {
+	public abstract String sayHello(String name);
+}
+
+@FunctionalInterface
+interface MyFunctionalInterface05 {
+	public abstract String concatStrings(String a, String b);
+}
+
+@FunctionalInterface // optional
+interface MyFunctionalInterface06 {
+	// single abstract method with single parameter
+	public abstract int incrementByFive(int a);
 	// public int decrementByFive(int a); //CE
 }
 
-/* This is lambdaExample */
-interface Addable1 {
-	int add(int a, int b);
-}
-
-/* This is lambdaExample */
-interface Addable {
-	int add(int a, int b);
-}
-
-interface MathOperation_101 {
-	int operation(int a, int b);
+@FunctionalInterface
+interface MyFunctionalInterface07 {
+	public abstract int mathOperations(int a, int b);
 }
 
 @FunctionalInterface
-interface MyFunctionalInterface6 {
-	public int add(int a, int b);
-}
-
-interface StringConcat2 {
-	public String sconcat(String a, String b);
-}
-
-@FunctionalInterface
-interface MyFunctionalInterface1 {
-	// only one abstract method is allowed.
-	String hello(String name);
-}
-
-interface GreetingService {
-	void sayMessage(String message);
+interface MyFunctionalInterface08 {
+	public abstract double get(double radius);
 }
 
 public class Lambda_Expression_demo {
-	
-	final static String salutation = "Hello! ";
 
-	// instance variable
-	public static String wildPerson2 = "Lion";
-	
+	// instance members
+
+	private static Comparator<Integer> intComparator1 = new Comparator<Integer>() {
+		@Override
+		public int compare(Integer num1, Integer num2) {
+			return num1.compareTo(num2);
+		}
+	};
+
+	private static Comparator<Integer> intComparator2 = (Integer num1, Integer num2) -> num1.compareTo(num2);
+	private static Comparator<Integer> intComparator3 = (x, y) -> x.compareTo(y);
+	private static Comparator<Integer> intComparator4 = new Comparator<Integer>() {
+		@Override
+		public int compare(Integer num1, Integer num2) {
+			return num1.compareTo(num2);
+		}
+	};
+
+	private static Comparator<String> strComparatorAsc = (s1, s2) -> s1.length() - s2.length();
+	private static Comparator<String> strComparatorAsc2 = new Comparator<String>() {
+		@Override
+		public int compare(String str1, String str2) {
+			return str1.compareTo(str2);
+		}
+	};
+
+	private static Comparator<String> strComparatorDesc = (s1, s2) -> s2.length() - s1.length();
+	private static Comparator<String> strComparatorLength = Comparator.comparingInt(String::length);
+
+	private static List<String> namesList = Arrays.asList("Mahesh", "Suresh", "Naresh", "Kalpesh ");
+	private static List<Person> personList = Arrays.asList();
+
+	public static final String salutation = "Mr ";
+	public static final String wildPerson2 = "Lion";
 	final Runnable r1 = () -> out.println(this);
-	Runnable r2 = () -> out.println(toString());
+	final Runnable r2 = () -> out.println(toString());
 
-	public double circleOperation(double radius, Circle c) {
+	public double circleOperation(double radius, MyFunctionalInterface08 c) {
 		return c.get(radius);
 	}
 
@@ -103,93 +120,151 @@ public class Lambda_Expression_demo {
 		}
 		return sum;
 	}
-	
-	private int operate(int a, int b, MathOperation_101 mathOperation) {
-		return mathOperation.operation(a, b);
+
+	private int operate(int a, int b, MyFunctionalInterface07 mathOperation) {
+		return mathOperation.mathOperations(a, b);
 	}
 
 	public static void main(String[] arg) {
-		
-	//// ########################################################################
-		// app-01
-		List<String> list = new ArrayList<String>();
-		list.add("Rick");
-		list.add("Negan");
-		list.add("Daryl");
-		list.add("Glenn");
-		list.add("Carl");
-		list.forEach((item) -> {System.out.println(item);});
 
-		//// ########################################################################
-		// app-02
-		final List<String> list2 = new ArrayList<String>();
-		list2.add("abc");
-		list2.add("pqr");
+		lambdaWithFunctionalInterfaceDemo();
+		lambdaWithFunctionalInterfaceWithNoParamDemo01();
+		lambdaWithFunctionalInterfaceWitOneParamDemo01();
+		lambdaWithFunctionalInterfaceWitTwoParamDemo01();
+		lambdaWithForEachDemo();
+		lambdaWithThread();
+		lambdaWithPredicate();
+		sortStrings();
+		method1();
+		method2();
+		compareTwoIntBeforeJdk8();
+		compareTwoIntInJdk8UsingLambda();
+		sortingListOfStringUsingJdk8UsingLambda();
+		custom_comparator_demo();
+		sortNamesList();
+		sortEmployeesByName();
+		createAndStartThreadBeforeJdk8();
+		createAndStartThreadInJdk8();
 
-		// Java 7
-		for (final String s : list2) {
-			System.out.print(s + " ");
-		}
+		new Lambda_Expression_demo().r1.run();
+		new Lambda_Expression_demo().r2.run();
+
+	} // main
+
+	private static void lambdaWithFunctionalInterfaceWithNoParamDemo01() {
+
+		// Before java-8
+		final ActionListener al1 = new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				System.out.println(e.getActionCommand());
+			}
+		};
 
 		// Java 8
-		list2.forEach(System.out::println);
-		
-		//// ########################################################################
-		// local var
-		String domesticPerson2 = "Dog";
-
-		new Thread(() -> {
-			System.out.println("Class Level: " + wildPerson2);
-			System.out.println("Method Level: " + domesticPerson2);
-		}).start();
-
-		// ########################################################################
-		new Thread(new Runnable() {
-			@Override
-			public void run() {
-				// System.out.println("Class Level: " + this.wildPerson2);
-				System.out.println("Method Level: " + domesticPerson2);
-			}
-		}).start();
-
-		// ########################################################################
-		Runnable java8Runner = () -> {
-			System.out.println("I am running");
+		final ActionListener al2 = (e) -> {
+			System.out.println(e.getActionCommand());
 		};
-		new Thread(java8Runner).start();
-		// ########################################################################
-		// Lambda with functional interface demo
-		Circle circleArea = (r) -> Math.PI * r * r;
-		Circle circleCircumference = (r) -> 2 * Math.PI * r;
 
-		Lambda_Expression_demo reference = new Lambda_Expression_demo();
+		// EX-01
+		// lambda expression
+		// overriding the method of functional interface using lambda(without method
+		// name).
+		MyFunctionalInterface01 msg = () -> {
+			System.out.println("Hello");
+		};
 
-		double area = reference.circleOperation(10, circleArea);
-		System.out.println("Area=" + area);
+		msg.sayHello();
 
-		double circumference = reference.circleOperation(5, circleCircumference);
-		System.out.println("circumfarence=" + circumference);
+		// EX-02
+		final MyFunctionalInterface02 s = () -> {
+			return "I have nothing to say.";
+		};
+		System.out.println(s.sayHello());
+	}
 
-		// ########################################################################
+	private static void lambdaWithFunctionalInterfaceWitOneParamDemo01() {
 
-		Callable<String>[] animals = new Callable[] { () -> "Lion", () -> "Crocodile" };
-		// System.out.println(animals);
-		try {
-			System.out.println(animals[0].call());
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+		// Ex-01
+		// lambda expression with single parameter num
+		MyFunctionalInterface06 f = (num) -> num + 5;
+		System.out.println(f.incrementByFive(22));
 
-		// ########################################################################
+		MyFunctionalInterface06 f1 = num -> num + 5;
+		System.out.println(f1.incrementByFive(22));
+
+		// EX-02
+		// Lambda expression with single parameter.
+		final MyFunctionalInterface04 s1 = (name) -> {
+			return "Welcome " + name;
+		};
+		System.out.println(s1.sayHello("Lipu"));
+
+		final MyFunctionalInterface04 s2 = name -> {
+			return "Welcome " + name;
+		};
+		System.out.println(s2.sayHello("Punya"));
+
+		// Ex-03
+
+		MyFunctionalInterface04 obj1 = (String name) -> {
+			return "Hi " + name;
+		};
+		System.out.println(obj1.sayHello("Lipun"));
+
+		MyFunctionalInterface04 obj2 = (name) -> {
+			return "Hello " + name;
+		};
+		System.out.println(obj2.sayHello("Punya"));
+
+	}
+
+	private static void lambdaWithFunctionalInterfaceWitTwoParamDemo01() {
+
+		// Ex-03
+		// with type declaration
+		final MyFunctionalInterface07 addition = (int a, int b) -> a + b;
+		System.out.println("10 + 5 = " + addition.mathOperations(10, 5));
+
+		// with out type declaration
+		final MyFunctionalInterface07 subtraction = (a, b) -> a - b;
+		System.out.println("10 - 5 = " + subtraction.mathOperations(10, 5));
+
+		// with return statement along with curly braces
+		final MyFunctionalInterface07 multiplication = (int a, int b) -> {
+			return a * b;
+		};
+		System.out.println("10 x 5 = " + multiplication.mathOperations(10, 5));
+
+		// without return statement and without curly braces
+		final MyFunctionalInterface07 division = (int a, int b) -> a / b;
+		System.out.println("10 / 5 = " + division.mathOperations(10, 5));
+
+		// EX-04
+		// lambda expression with multiple arguments
+		MyFunctionalInterface05 s3 = (str1, str2) -> str1 + str2;
+		System.out.println("Add Result: " + s3.concatStrings("Hello ", "World"));
+
+		// app-03 - Using predefined functional interfcae
+		// IntBinaryOperator is a predefined functional interface.
+		IntBinaryOperator sum = (a, b) -> a + b;
+		System.out.println(sum.applyAsInt(3, 8));
+
+	}
+
+	private static void sortStrings() {
+
 		// Before Soorting
-		Person[] personArr = { new Person("Lion"), new Person("Crocodile"), new Person("Tiger"),new Person("Elephant") };
+		Person[] personArr = { new Person("Lion"), new Person("Crocodile"), new Person("Tiger"),
+				new Person("Elephant") };
 		System.out.println("Before Sort: " + Arrays.toString(personArr));
 
 		// After sorting
 		Arrays.sort(personArr);
 		System.out.println("After Sort: " + Arrays.toString(personArr));
+	}
 
-		// ########################################################################
+	private static void lambdaWithPredicate() {
 		//// Predicates and Lambda Expressions
 		List<Integer> numList = new ArrayList<>();
 
@@ -204,164 +279,295 @@ public class Lambda_Expression_demo {
 		// System.out.println("Add Less Than 25: " + add(numList, n -> n < 25));
 		// System.out.println("Add 3 Multiples: " + add(numList, n -> n % 3 ==
 		// 0));
+	}
 
-		// ########################################################################
-		final Sayable s = () -> {
-			return "I have nothing to say.";
-		};
-		System.out.println(s.say());
+	private static void lambdaWithThread() {
 
-		// ########################################################################
-		// lambda expression
-		//overriding the method of functional interface using lambda(without method name).
-		MyFunctionalInterface01 msg = () -> {
-			System.out.println("Hello");
-		};
-		
-		msg.sayHello();
+		// Ex-01
+		String domesticPerson2 = "Dog";
+		new Thread(() -> {
+			System.out.println("Class Level: " + wildPerson2);
+			System.out.println("Method Level: " + domesticPerson2);
+		}).start();
 
-		// ########################################################################
-		// Lambda expression with single parameter.
-		final interface1 s1 = (name) -> {
-			return "Welcome " + name;
-		};
-		System.out.println(s1.say("Abi"));
+		// ex-04
+		Callable<String>[] animals = new Callable[] { () -> "Lion", () -> "Crocodile" };
+		try {
+			System.out.println(animals[0].call());
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 
-		// without function parentheses
-		final interface1 s2 = name -> {
-			return "Welcome " + name;
-		};
-		System.out.println(s2.say("Abi"));
+	private static void lambdaWithForEachDemo() {
 
-		// ########################################################################
-		// lambda expression with single parameter num
-		MyFunctionalInterface02 f = (num) -> num + 5;
-		System.out.println(f.incrementByFive(22));
-
-		// ########################################################################
-		// Multiple parameters in lambda expression
-		final Addable1 ad1 = (a, b) -> (a + b); // data type s optional
-		System.out.println(ad1.add(10, 20));
-
-		// ########################################################################
-		// Lambda expression without return keyword.
-		final Addable ad2 = (a, b) -> (a + b);
-		System.out.println(ad2.add(10, 20));
-
-		// Lambda expression with return keyword.
-		final Addable ad3 = (int a, int b) -> {
-			return (a + b);
-		};
-		System.out.println(ad3.add(100, 200));
-
-		// ########################################################################
-		// with type declaration
-		final MathOperation_101 addition = (int a, int b) -> a + b;
-
-		// with out type declaration
-		final MathOperation_101 subtraction = (a, b) -> a - b;
-
-		// with return statement along with curly braces
-		final MathOperation_101 multiplication = (int a, int b) -> {
-			return a * b;
-		};
-
-		// without return statement and without curly braces
-		final MathOperation_101 division = (int a, int b) -> a / b;
-
-		System.out.println("10 + 5 = " + addition.operation(10, 5));
-		System.out.println("10 - 5 = " + subtraction.operation(10, 5));
-		System.out.println("10 x 5 = " + multiplication.operation(10, 5));
-		System.out.println("10 / 5 = " + division.operation(10, 5));
-
-		// ########################################################################
-		// app-01
-		// lambda expression with multiple arguments
-		StringConcat2 s3 = (str1, str2) -> str1 + str2;
-
-		// System.out.println(s);
-		System.out.println("Result: " + s3.sconcat("Hello ", "World"));
-
-		// app-02 - Using user defined functional interfcae
-		MyFunctionalInterface6 ref = (a, b) -> a + b;
-		System.out.println(ref.add(2, 5));
-
-		// app-03 - Using predefined functional interfcae
-		// IntBinaryOperator is a predefined functional interface.
-		IntBinaryOperator sum = (a, b) -> a + b;
-		System.out.println(sum.applyAsInt(3, 8));
-		
-		//########################################################################
-		// using forEach
-		String abc = String.join(" ", "Java", "8");
-		System.out.println(abc);
-
-		Arrays.asList("a", "b", "d").forEach(e -> System.out.println(e));
-
-		Arrays.asList("a", "b", "d").forEach(e -> {
-			System.out.print(e);
+		Arrays.asList("name1", "name2", "name3").forEach(str -> System.out.println(str));
+		Arrays.asList("name1", "name2", "name3").forEach(str -> {
+			System.out.print(str);
 		});
 
 		final String separator = ",";
-		Arrays.asList("a", "b", "d").forEach((String e) -> System.out.print(e + separator));
-		Arrays.asList("a", "b", "d").sort((e1, e2) -> e1.compareTo(e2));
-		
-		//#################################################################################
-		
-		MyFunctionalInterface1 obj1 = (String name) -> {
-			return "Hello " + name + " Hi";
-		};
+		Arrays.asList("name1", "name2", "name3").forEach((String e) -> System.out.print(e + separator));
 
-		MyFunctionalInterface1 obj2 = (String name) -> {
-			return "Hello " + name;
-		};
+		List<String> list = new ArrayList<String>();
+		list.add("Rick");
+		list.add("Negan");
+		list.add("Daryl");
+		list.add("Glenn");
+		list.add("Carl");
 
-		System.out.println(obj1.hello("Lipun"));
-		System.out.println(obj2.hello("Punya"));
-		
-		
-		//#################################################################################
+		// Java 7
+		for (final String str : list) {
+			System.out.print(str + " ");
+		}
+
+		// Java 8
+		list.forEach(System.out::println);
+		list.forEach((str) -> {
+			System.out.println(str);
+		});
+
+		String str = String.join(" ", "Java", "8", "features");
+		System.out.println(str);
+
+		Arrays.asList("name1", "name3", "name2").sort((str1, str2) -> str1.compareTo(str2));
+	}
+
+	private static void lambdaWithFunctionalInterfaceDemo() {
+
+		Lambda_Expression_demo obj = new Lambda_Expression_demo();
+
+		// ex-01
+		MyFunctionalInterface08 finfCircleCircumferenceUsingRadius = (r) -> 2 * Math.PI * r;
+		double circumference = obj.circleOperation(5, finfCircleCircumferenceUsingRadius);
+		System.out.println("circle circumfarence=" + circumference);
+
+		// ex-02
+		MyFunctionalInterface08 finfCircleAreaUsingRadius = (r) -> Math.PI * r * r;
+		double area = obj.circleOperation(10, finfCircleAreaUsingRadius);
+		System.out.println(" Circle Area=" + area);
+
+	}
+
+	private static void method1() {
 		Lambda_Expression_demo tester = new Lambda_Expression_demo();
 
 		// with type declaration
-		MathOperation_101 add = (int a, int b) -> a + b;
+		MyFunctionalInterface07 add = (int a, int b) -> a + b;
 
 		// with out type declaration
-		MathOperation_101 subtract = (a, b) -> a - b;
+		MyFunctionalInterface07 subtract = (a, b) -> a - b;
 
 		// with return statement along with curly braces
-		MathOperation_101 mul = (int a, int b) -> {
+		MyFunctionalInterface07 mul = (int a, int b) -> {
 			return a * b;
 		};
 
 		// without return statement and without curly braces
-		MathOperation_101 div = (int a, int b) -> a / b;
+		MyFunctionalInterface07 div = (int a, int b) -> a / b;
 
 		System.out.println("10 + 5 = " + tester.operate(10, 5, add));
 		System.out.println("10 - 5 = " + tester.operate(10, 5, subtract));
 		System.out.println("10 x 5 = " + tester.operate(10, 5, mul));
 		System.out.println("10 / 5 = " + tester.operate(10, 5, div));
+	}
 
+	private static void method2() {
 		// without parenthesis
-		GreetingService greetService1 = message -> System.out.println("Hello " + message);
+		MyFunctionalInterface03 greetService1 = message -> System.out.println("Hello " + message);
 
 		// with parenthesis
-		GreetingService greetService2 = (message) -> System.out.println("Hello " + message);
+		MyFunctionalInterface03 greetService2 = (message) -> System.out.println("Hello " + message);
 
-		GreetingService greetService3 = message -> System.out.println(salutation + message);
+		MyFunctionalInterface03 greetService3 = message -> System.out.println(salutation + message);
 
-		greetService1.sayMessage("Mahesh");
-		greetService2.sayMessage("Suresh");
-		greetService3.sayMessage("Mahesh");
-		
-		//###############################################################
-		new Lambda_Expression_demo().r1.run();
-		new Lambda_Expression_demo().r2.run();
-
+		greetService1.sayHello("Mahesh");
+		greetService2.sayHello("Suresh");
+		greetService3.sayHello("Mahesh");
 	}
-	
+
 	@Override
 	public String toString() {
 		return "Hello, world!";
+	}
+
+	private static void compareTwoIntBeforeJdk8() {
+		System.out.println(intComparator1.compare(10, 15)); // -1
+	}
+
+	private static void compareTwoIntInJdk8UsingLambda() {
+		System.out.println(intComparator2.compare(30, 45)); // -1
+		// OR, without using datatype
+		System.out.println(intComparator3.compare(30, 45)); // -1
+	}
+
+	private static void sortingListOfStringUsingJdk8UsingLambda() {
+
+		final List<String> nameslist = new ArrayList<String>();
+		nameslist.add("punya");
+		nameslist.add("Aswini");
+		nameslist.add("omkar");
+		nameslist.add("pankaj");
+
+		Collections.sort(nameslist, strComparatorAsc);
+		System.out.println("names ==>" + nameslist); // [punya, omkar, Aswini, pankaj]
+
+		Collections.sort(nameslist, strComparatorDesc);
+		System.out.println("names ==>" + nameslist); // [Aswini, pankaj, punya, omkar]
+		// or
+		nameslist.sort(strComparatorLength);
+		System.out.println("names ==>" + nameslist); // [punya, omkar, Aswini, pankaj]
+
+		// using custom comparator for sorting
+		Collections.sort(nameslist, strComparatorAsc2);
+		System.out.println(nameslist); // [Aswini, omkar, pankaj, punya]
+
+	}
+
+	private static void custom_comparator_demo() {
+
+		// ex-01 using java-7 comparator
+		System.out.println(intComparator4.compare(10, 20)); // -1
+		System.out.println(intComparator4.compare(20, 10)); // 1
+
+		// ex-02 using java-8 comparator
+		Comparator<Integer> comparator2 = (Integer i1, Integer i2) -> i1.compareTo(i2);
+		System.out.println(comparator2.compare(15, 25)); // -1
+		System.out.println(comparator2.compare(25, -15)); // -1
+
+	}
+
+	private static void sortNamesList() {
+
+		Collections.sort(namesList);
+		System.out.println(namesList);
+
+		// using jdk7, using in line comparator
+		Collections.sort(namesList, new Comparator<String>() {
+			@Override
+			public int compare(String name1, String name2) {
+				return name1.compareTo(name2);
+				// return name2.compareTo(name1);
+			}
+		});
+		System.out.println(namesList);
+
+		// way-02
+		Comparator<String> nameComparator = new Comparator<String>() {
+			@Override
+			public int compare(String name1, String name2) {
+				return name1.compareTo(name2);
+			}
+		};
+
+		Collections.sort(namesList, nameComparator);
+		System.out.println(namesList);
+
+		// using jdk8
+		Collections.sort(namesList, (String name1, String name2) -> name1.compareTo(name2));
+		// Collections.sort(namesList, (name1, name2) -> name1.compareTo(name2)); //OK
+		System.out.println(namesList);
+	}
+
+	private static void sortEmployeesByName() {
+
+		// only gathering the employee names and sorting in natural order.
+		List<String> empNamesList = personList.stream().map(Person::getFirstName).collect(Collectors.toList());
+		empNamesList.sort(Comparator.naturalOrder());
+		// empNamesList.sort(Comparator.reverseOrder());
+		empNamesList.forEach(System.out::println);
+
+		Comparator<Person> empNameComparator = Comparator.comparing(Person::getFirstName).reversed();
+		Collections.sort(personList, empNameComparator);
+		personList.forEach(System.out::println);
+
+		// java8
+		personList.sort(Comparator.comparing(Person::getLastName).thenComparing(Person::getFirstName));
+		personList.forEach(System.out::println);
+
+		// java8
+		Collections.sort(personList, (p1, p2) -> {
+			final int n = p1.getLastName().compareTo(p2.getLastName());
+			if (n == 0) {
+				return p1.getFirstName().compareTo(p2.getFirstName());
+			}
+			return n;
+		});
+
+		System.out.println(personList);
+
+		// Comparator with sort key null and using nullsFirst()
+		Comparator<Person> personFirstNameComparator5 = Comparator.comparing(Person::getFirstName,
+				Comparator.nullsFirst(String::compareTo));
+		Collections.sort(personList, personFirstNameComparator5);
+		personList.forEach(System.out::println);
+
+		// Comparator with sort key null and using nullsLast()
+		Comparator<Person> empNameComparator6 = Comparator.comparing(Person::getFirstName,
+				Comparator.nullsLast(String::compareTo));
+		Collections.sort(personList, empNameComparator6);
+		personList.forEach(System.out::println);
+
+		// ex--01 using jdk7, using in line comparator
+		Collections.sort(personList, new Comparator<Person>() {
+			@Override
+			public int compare(Person e1, Person e2) {
+				// return (e1.getName().compareTo(e2.getName()));
+				// return (e2.getName().compareTo(e1.getName()));
+				return (e1.getAge().compareTo(e2.getAge()));
+				// return (e2.getAge().compareTo(e1.getAge()));
+			}
+		});
+		personList.forEach(System.out::println);
+
+		// ex-02 , using jdk7 external comparator
+		Collections.sort(personList, new PersonComparator());
+		personList.forEach(System.out::println);
+
+		// ex-03 - Comparator creation using static method comparing()
+		Comparator<Person> empNameComparator2 = Comparator.comparing(Person::getFirstName)
+				.thenComparing(Person::getAge);
+		Collections.sort(personList, empNameComparator2);
+		personList.forEach(System.out::println);
+
+		// ex-04 , using jdk8 Defining a Comparator using lambda expression
+		Comparator<Person> empNameComparator4 = (Person emp1, Person emp2) -> {
+			return (emp1.getFirstName().compareTo(emp2.getFirstName()));
+		};
+		Collections.sort(personList, empNameComparator4);
+		personList.forEach(System.out::println);
+	}
+
+	private static void createAndStartThreadBeforeJdk8() {
+
+		Runnable runnable1 = new Runnable() {
+			@Override
+			public void run() {
+				System.out.println("Th-0");
+			}
+		};
+		new Thread(runnable1).start();
+		// OR
+		String domesticPerson2 = "Dog";
+		new Thread(new Runnable() {
+			@Override
+			public void run() {
+				// System.out.println("Class Level: " + this.wildPerson2);
+				System.out.println("Th-1:" + domesticPerson2);
+			}
+		}).start();
+	}
+
+	private static void createAndStartThreadInJdk8() {
+
+		Runnable runnable3 = () -> {
+			System.out.println("Th-4");
+		};
+		new Thread(runnable3).start();
+		// OR
+		new Thread(() -> {
+			System.out.println("Th-5");
+		}).start();
+
 	}
 }

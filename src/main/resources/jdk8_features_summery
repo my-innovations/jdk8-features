@@ -1,13 +1,14 @@
+	Lambda expression
+	functional interface : Ex- Runnable,Callable,ActionListener,Comparable
+	predefined functional interfaces : Predicate,Function,Consumer etc.
+	Default and static methods of interface
+	Date,time api from jorda
+	Method ref (::)
+	Stream api
 	Collectors class
-	date , time api
 	forEach
-	functional interface
-	interface default and static methods
-	lambda expression
-	method ref
-	optional
-	stream api
-	string joinner
+	Optional class
+	Stringjoinner class
 	Arrays Parallel sort
 	collection api improvements
-	concurrency enhancements
+	concurrency api enhancements
