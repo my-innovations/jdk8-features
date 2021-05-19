@@ -17,30 +17,7 @@ import java.util.function.IntBinaryOperator;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-/*
- * 
- * 
- * 1.  Functional Interface and Lambda Expression 
- * 2.  Method References
- * 3.  Interface Changes : Esistance of Default method(non-static and static) in Interface
- * 4.  Collectors class in JDK8
- * 5.  Pipelines, Stream and StreamFilter Class in JDK8
- * 6.  StringJoinner Class in JDK8
- * 7.  Optional Class in JDK8
- * 8.  Arrays Class Parallel sort feature
- * 9. forEach() method in Iterable interface
- * 10. Concurrency API improvements
- * 11. Collection API improvements Ex- new java.util.stream package, java.util.function package( Predicate, Consumer, Function and Supplier.)
- * 12. Java Date and Time API improvements , Ex- new java.time package , DateTimeFormatter class , Refer : http://www.java2novice.com/java-8/date-time-api/
- * 13. Type and Repating Annotations
- * 14. JDBC API Enhancements : JDBC 4.2 with new features and notably the JDBC-ODBC bridge has been removed from jdk8.
- * 15. Nashorn JavaScript Engine
- * 16.  PermGen Error Removed
-   17.  TLS SNI
- * 
- * 
- * 
- * */
+
 
 //########################################## 
 //Lambda Expression and Functional Interface 

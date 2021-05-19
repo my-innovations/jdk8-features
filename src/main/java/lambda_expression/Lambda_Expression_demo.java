@@ -24,13 +24,30 @@ import model.Person;
 //keyword when lambda expression contains multiple statements.
 
 //Java Lambda Expression with no parameter
-@FunctionalInterface // optional
+@FunctionalInterface
 interface MyFunctionalInterface01 {
 	// single abstract method with no parameter and not returns anything.
+	// we can any no of default and statc metods here.
 	public abstract void sayHello();
+
+	default void m01() {
+		System.out.println("inside dafault method m1");
+	}
+
+	default void m02() {
+		System.out.println("inside dafault method m2");
+	}
+
+	static void m03() {
+		System.out.println("inside statac method m3");
+	}
+
+	static void m04() {
+		System.out.println("inside statac method m4");
+	}
 }
 
-@FunctionalInterface // optional
+@FunctionalInterface
 interface MyFunctionalInterface02 {
 	// single abstract method with no parameter and returns string.
 	public abstract String sayHello();
@@ -51,7 +68,7 @@ interface MyFunctionalInterface05 {
 	public abstract String concatStrings(String a, String b);
 }
 
-@FunctionalInterface // optional
+@FunctionalInterface
 interface MyFunctionalInterface06 {
 	// single abstract method with single parameter
 	public abstract int incrementByFive(int a);
@@ -88,16 +105,15 @@ public class Lambda_Expression_demo {
 		}
 	};
 
-	private static Comparator<String> strComparatorAsc = (s1, s2) -> s1.length() - s2.length();
-	private static Comparator<String> strComparatorAsc2 = new Comparator<String>() {
+	private static Comparator<String> strComparatorAsc = new Comparator<String>() {
 		@Override
 		public int compare(String str1, String str2) {
 			return str1.compareTo(str2);
 		}
 	};
-
-	private static Comparator<String> strComparatorDesc = (s1, s2) -> s2.length() - s1.length();
-	private static Comparator<String> strComparatorLength = Comparator.comparingInt(String::length);
+	private static Comparator<String> strLengthComparatorAsc = (s1, s2) -> s1.length() - s2.length();
+	private static Comparator<String> strLengthComparatorAsc2 = Comparator.comparingInt(String::length);
+	private static Comparator<String> strLengthComparatorDesc = (s1, s2) -> s2.length() - s1.length();
 
 	private static List<String> namesList = Arrays.asList("Mahesh", "Suresh", "Naresh", "Kalpesh ");
 	private static List<Person> personList = Arrays.asList();
@@ -160,7 +176,7 @@ public class Lambda_Expression_demo {
 				System.out.println(e.getActionCommand());
 			}
 		};
-
+		
 		// Java 8
 		final ActionListener al2 = (e) -> {
 			System.out.println(e.getActionCommand());
@@ -170,17 +186,16 @@ public class Lambda_Expression_demo {
 		// lambda expression
 		// overriding the method of functional interface using lambda(without method
 		// name).
-		MyFunctionalInterface01 msg = () -> {
+		MyFunctionalInterface01 obj1 = () -> {
 			System.out.println("Hello");
 		};
-
-		msg.sayHello();
+		obj1.sayHello();
 
 		// EX-02
-		final MyFunctionalInterface02 s = () -> {
+		final MyFunctionalInterface02 obj2 = () -> {
 			return "I have nothing to say.";
 		};
-		System.out.println(s.sayHello());
+		System.out.println(obj2.sayHello());
 	}
 
 	private static void lambdaWithFunctionalInterfaceWitOneParamDemo01() {
@@ -409,17 +424,17 @@ public class Lambda_Expression_demo {
 		nameslist.add("omkar");
 		nameslist.add("pankaj");
 
-		Collections.sort(nameslist, strComparatorAsc);
+		Collections.sort(nameslist, strLengthComparatorAsc);
 		System.out.println("names ==>" + nameslist); // [punya, omkar, Aswini, pankaj]
 
-		Collections.sort(nameslist, strComparatorDesc);
+		Collections.sort(nameslist, strLengthComparatorDesc);
 		System.out.println("names ==>" + nameslist); // [Aswini, pankaj, punya, omkar]
 		// or
-		nameslist.sort(strComparatorLength);
+		nameslist.sort(strLengthComparatorAsc2);
 		System.out.println("names ==>" + nameslist); // [punya, omkar, Aswini, pankaj]
 
 		// using custom comparator for sorting
-		Collections.sort(nameslist, strComparatorAsc2);
+		Collections.sort(nameslist, strComparatorAsc);
 		System.out.println(nameslist); // [Aswini, omkar, pankaj, punya]
 
 	}
@@ -570,4 +585,24 @@ public class Lambda_Expression_demo {
 		}).start();
 
 	}
+}
+
+
+
+//using jdk7 and before
+class PersonComparator implements Comparator<Person> {
+	
+	@Override
+	public int compare(Person emp1, Person emp2) {
+		
+		// based on ascending order of name
+		//return emp1.getName().compareTo(emp2.getName());
+		
+		// based on descending order of name
+		 return (emp2.getFirstName().compareTo(emp1.getFirstName()));
+		 
+		// based on descending order of sal
+		//return emp1.getSalary().compareTo(emp2.getSalary());
+	}
+
 }

@@ -10,7 +10,7 @@ interface MyFunctionalInterface{
 	//public String hello(String name);
 }
 
-public class Test {
+public class Test1 {
 
 	public static void main(String[] args) {
 		MyFunctionalInterface obj = (name) ->  {return "Hello:"+name;};
