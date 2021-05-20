@@ -1,18 +1,20 @@
 package interface_changes;
 
 //NOte:
+//we can write any no of default and static methods inside an interface.
 //we can override interface's default method in child classes but not static methods.
-//we can write any no of default and static methods inside interface.
-
-//we can not call non static method from static method and variable in interface.//CE
 //we should not override interface static method in sub classes due to some security violations.
+//we can not call non static method from static method and variable in interface.//CE
+
 //static method in interface can not be empty.
 //static method can be accessed by directly by interface name.
 //static method in interface is called as utility method.
 
+
+
 interface MyInterface1 {
 
-	void exsistingMethod(String str);// SAM
+	public abstract void exsistingMethod(String str);// SAM
 
 	default public void default_method1() {
 		System.out.println("from default method1 - MyInterface1");
@@ -37,16 +39,18 @@ interface MyInterface1 {
 
 interface MyInterface2 {
 
-	//default method
+	// default method
 	default public void default_method1() {
 		System.out.println("from default method1 - MyInterface2");
 	}
 
-	//static method
+	// static method
 	static public void static_method1() {
 		System.out.println("from static method1 - MyInterface2");
 	}
 }
+
+//##########################################################################################################
 
 class MyClass1 implements MyInterface1 {
 
@@ -88,19 +92,22 @@ class MyClass2 implements MyInterface1, MyInterface2 {
 		System.out.println("Hello:" + str);
 	}
 
-	// ovverriding default method in child class.
+	// ovverriding default method of both MyInterface1, MyInterface2 in child class.
 	@Override
 	public void default_method1() {
 
-		default_method1();
+		//calling default method
+		//default_method1(); //CE
 		MyInterface1.super.default_method1();
 		MyInterface2.super.default_method1();
 
+		//calling static method
 		MyInterface1.static_method1();
 		MyInterface2.static_method1();
 	}
 
 	// ovverriding static method in child class from MyInterface1,MyInterface2.
+	//not recomended 
 	static public void static_method1() {
 		MyInterface1.static_method1();
 		MyInterface2.static_method1();
@@ -108,6 +115,7 @@ class MyClass2 implements MyInterface1, MyInterface2 {
 }
 
 public class Interface_Changes_in_jdk8 {
+	
 	public static void main(String[] args) {
 
 		// calling static methods of interface1

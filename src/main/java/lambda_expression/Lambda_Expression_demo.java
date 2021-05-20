@@ -9,6 +9,8 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import java.util.TreeMap;
+import java.util.TreeSet;
 import java.util.concurrent.Callable;
 import java.util.function.IntBinaryOperator;
 import java.util.function.Predicate;
@@ -104,7 +106,6 @@ public class Lambda_Expression_demo {
 			return num1.compareTo(num2);
 		}
 	};
-
 	private static Comparator<String> strComparatorAsc = new Comparator<String>() {
 		@Override
 		public int compare(String str1, String str2) {
@@ -150,6 +151,7 @@ public class Lambda_Expression_demo {
 		lambdaWithForEachDemo();
 		lambdaWithThread();
 		lambdaWithPredicate();
+		lambdaWithComparatorForSorting();
 		sortStrings();
 		method1();
 		method2();
@@ -159,8 +161,7 @@ public class Lambda_Expression_demo {
 		custom_comparator_demo();
 		sortNamesList();
 		sortEmployeesByName();
-		createAndStartThreadBeforeJdk8();
-		createAndStartThreadInJdk8();
+		annonymousInnerClassVsLambdaExpression();
 
 		new Lambda_Expression_demo().r1.run();
 		new Lambda_Expression_demo().r2.run();
@@ -280,7 +281,6 @@ public class Lambda_Expression_demo {
 	}
 
 	private static void lambdaWithPredicate() {
-		//// Predicates and Lambda Expressions
 		List<Integer> numList = new ArrayList<>();
 
 		numList.add(new Integer(10));
@@ -294,6 +294,35 @@ public class Lambda_Expression_demo {
 		// System.out.println("Add Less Than 25: " + add(numList, n -> n < 25));
 		// System.out.println("Add 3 Multiples: " + add(numList, n -> n % 3 ==
 		// 0));
+	}
+	
+	private static void lambdaWithComparatorForSorting() {
+
+		// Ex-01 //desc order
+		List<Integer> numList = new ArrayList<>();
+		numList.add(new Integer(10));
+		numList.add(new Integer(20));
+		numList.add(new Integer(30));
+		numList.add(new Integer(40));
+		numList.add(new Integer(50));
+
+		Collections.sort(numList, (i1, i2) -> (i1 > i2) ? -1 : (i1 < i2) ? 1 : 0);
+		System.out.println(numList);
+
+		// Ex-02 //desc order
+		TreeSet<Integer> set = new TreeSet<>((i1, i2) -> (i1 > i2) ? -1 : (i1 < i2) ? 1 : 0);
+		set.add(11);
+		set.add(5);
+		set.add(25);
+		set.add(45);
+		System.out.println(set);
+		
+		TreeMap<Integer,String> map = new TreeMap<>((i1, i2) -> (i1 > i2) ? -1 : (i1 < i2) ? 1 : 0);
+		map.put(100, "punya");
+		map.put(500, "sanjaya");
+		map.put(300, "pankaj");
+		map.put(200, "ullas");
+		System.out.println(map);
 	}
 
 	private static void lambdaWithThread() {
@@ -512,14 +541,12 @@ public class Lambda_Expression_demo {
 		System.out.println(personList);
 
 		// Comparator with sort key null and using nullsFirst()
-		Comparator<Person> personFirstNameComparator5 = Comparator.comparing(Person::getFirstName,
-				Comparator.nullsFirst(String::compareTo));
+		Comparator<Person> personFirstNameComparator5 = Comparator.comparing(Person::getFirstName,Comparator.nullsFirst(String::compareTo));
 		Collections.sort(personList, personFirstNameComparator5);
 		personList.forEach(System.out::println);
 
 		// Comparator with sort key null and using nullsLast()
-		Comparator<Person> empNameComparator6 = Comparator.comparing(Person::getFirstName,
-				Comparator.nullsLast(String::compareTo));
+		Comparator<Person> empNameComparator6 = Comparator.comparing(Person::getFirstName,Comparator.nullsLast(String::compareTo));
 		Collections.sort(personList, empNameComparator6);
 		personList.forEach(System.out::println);
 
@@ -553,8 +580,9 @@ public class Lambda_Expression_demo {
 		personList.forEach(System.out::println);
 	}
 
-	private static void createAndStartThreadBeforeJdk8() {
+	private static void annonymousInnerClassVsLambdaExpression() {
 
+		// annonymous inner class
 		Runnable runnable1 = new Runnable() {
 			@Override
 			public void run() {
@@ -562,6 +590,22 @@ public class Lambda_Expression_demo {
 			}
 		};
 		new Thread(runnable1).start();
+		// OR
+		new Thread(new Runnable() {
+			@Override
+			public void run() {
+				System.out.println("Th-0");
+			}
+		}).start();
+		// OR
+		Runnable runnable2 = () -> {
+			System.out.println("Th-4");
+		};
+		new Thread(runnable2).start();
+		// OR
+		new Thread(() -> {
+			System.out.println("Th-5");
+		}).start();
 		// OR
 		String domesticPerson2 = "Dog";
 		new Thread(new Runnable() {
@@ -572,19 +616,6 @@ public class Lambda_Expression_demo {
 			}
 		}).start();
 	}
-
-	private static void createAndStartThreadInJdk8() {
-
-		Runnable runnable3 = () -> {
-			System.out.println("Th-4");
-		};
-		new Thread(runnable3).start();
-		// OR
-		new Thread(() -> {
-			System.out.println("Th-5");
-		}).start();
-
-	}
 }
 
 
@@ -593,13 +624,13 @@ public class Lambda_Expression_demo {
 class PersonComparator implements Comparator<Person> {
 	
 	@Override
-	public int compare(Person emp1, Person emp2) {
+	public int compare(Person p1, Person p2) {
 		
 		// based on ascending order of name
 		//return emp1.getName().compareTo(emp2.getName());
 		
 		// based on descending order of name
-		 return (emp2.getFirstName().compareTo(emp1.getFirstName()));
+		 return (p1.getFirstName().compareTo(p2.getFirstName()));
 		 
 		// based on descending order of sal
 		//return emp1.getSalary().compareTo(emp2.getSalary());

@@ -1,39 +1,18 @@
 	Lambda expression
-	functional interface : Ex- Runnable,Callable,ActionListener,Comparable
-	predefined functional interfaces : Predicate,Function,Consumer etc.
-	Default and static methods of interface
-	Date,time api from jorda
-	Method ref (::)
+	custom functional interface with Lambda Expression : 
+	predefined functional interfaces : Ex- Runnable,Callable,ActionListener,Comparable ,Predicate,Function,Consumer,Comparator etc.
+	Existance of Default and static methods of interface
+	Date,time api from jorda api - Ex- new java.time package , DateTimeFormatter class , Refer : http://www.java2novice.com/java-8/date-time-api/
+	Method References (::)
 	Stream api
 	Collectors class
-	forEach
+	forEach method in Iterable interface
 	Optional class
 	Stringjoinner class
-	Arrays Parallel sort
-	collection api improvements
+	Arrays Parallel sort method
+	collection api improvements - Ex- new java.util.stream package, java.util.function package( Predicate, Consumer, Function and Supplier.)
 	concurrency api enhancements
-	
-/*
- * 
- * 
- * 1.  Functional Interface and Lambda Expression 
- * 2.  Method References
- * 3.  Interface Changes : Existance of Default , static method in Interface
- * 4.  Collectors class in JDK8
- * 5.  Pipelines, Stream and StreamFilter Class in JDK8
- * 6.  StringJoinner Class in JDK8
- * 7.  Optional Class in JDK8
- * 8.  Arrays Class Parallel sort feature
- * 9. forEach() method in Iterable interface
- * 10. Concurrency API improvements
- * 11. Collection API improvements Ex- new java.util.stream package, java.util.function package( Predicate, Consumer, Function and Supplier.)
- * 12. Java Date and Time API improvements , Ex- new java.time package , DateTimeFormatter class , Refer : http://www.java2novice.com/java-8/date-time-api/
- * 13. Type and Repating Annotations
- * 14. JDBC API Enhancements : JDBC 4.2 with new features and notably the JDBC-ODBC bridge has been removed from jdk8.
- * 15. Nashorn JavaScript Engine
- * 16.  PermGen Error Removed
-   17.  TLS SNI
- * 
- * 
- * 
- * */
+	Type and Repating Annotations
+	JDBC API Enhancements : JDBC 4.2 with new features and notably the JDBC-ODBC bridge has been removed from jdk8.
+	Nashorn JavaScript Engine
+	PermGen Error Removed
