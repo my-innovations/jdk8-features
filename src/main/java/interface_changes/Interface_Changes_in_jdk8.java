@@ -3,11 +3,11 @@ package interface_changes;
 //NOte:
 //we can write any no of default and static methods inside an interface.
 //we can override interface's default method in child classes but not static methods.
-//we should not override interface static method in sub classes due to some security violations.
+//we should not override interface static method in sub classes due to some security violations. if overriding in child it is not tht the overridden method.
 //we can not call non static method from static method and variable in interface.//CE
 
 //static method in interface can not be empty.
-//static method can be accessed by directly by interface name.
+//static method can be accessed only by interface name.
 //static method in interface is called as utility method.
 
 
@@ -118,6 +118,8 @@ public class Interface_Changes_in_jdk8 {
 	
 	public static void main(String[] args) {
 
+		//static_method1(); //CE
+		
 		// calling static methods of interface1
 		MyInterface1.static_method1();
 		System.out.println(MyInterface1.static_method2());
@@ -125,7 +127,6 @@ public class Interface_Changes_in_jdk8 {
 		MyClass1.static_method1();
 
 		MyClass1 obj = new MyClass1();
-
 		// calling implemented abstract method
 		obj.exsistingMethod("Hello");
 

@@ -2,7 +2,7 @@
 	custom functional interface with Lambda Expression : 
 	predefined functional interfaces : Ex- Runnable,Callable,ActionListener,Comparable ,Predicate,Function,Consumer,Comparator etc.
 	Existance of Default and static methods of interface
-	Date,time api from jorda api - Ex- new java.time package , DateTimeFormatter class , Refer : http://www.java2novice.com/java-8/date-time-api/
+	Date,time api from joda time api - Ex- new java.time package , DateTimeFormatter class , Refer : http://www.java2novice.com/java-8/date-time-api/
 	Method References (::)
 	Stream api
 	Collectors class
