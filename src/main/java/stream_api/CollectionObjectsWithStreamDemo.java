@@ -185,13 +185,20 @@ public class CollectionObjectsWithStreamDemo {
 
 	}// main
 	
+	public <T> void displayAnyList(ArrayList<T> list){
+		for( T t : list)
+			System.out.println(t);
+	}
+	
+	public <T extends Person> void displayPerson(T person){
+			System.out.println(person);
+	}
+	
+	
 	private static void maxOccuranceofAnItemInAnArray() {
-		
 	Map<Integer, Long> map = Arrays.stream(intArrayPrimitiveType).boxed().collect(Collectors.groupingBy(Function.identity(), Collectors.counting()));
-	int item = map.entrySet().stream().max((first, second) -> {
-	        return (int) (first.getValue() - second.getValue());
-	    }).get().getKey();
-	System.out.println(item);
+	int key = map.entrySet().stream().max((firstEntrySet, secondEnterSet) -> { return (int) (firstEntrySet.getValue() - secondEnterSet.getValue()); }).get().getKey();
+	System.out.println(key);
 		
 	}
 
@@ -1225,6 +1232,8 @@ public class CollectionObjectsWithStreamDemo {
 	 *  ################################################ Working with List Object ##########################################################################################################################################
 	 * 
 	 */
+	
+	
 	
 	private static void sortIntegerList() {
 		

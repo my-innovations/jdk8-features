@@ -14,7 +14,7 @@ public class ForEachWithList {
 
 	// dummy data
 	private static List<Integer> numList = Arrays.asList(1, 2, 3, 4, 5, 6);
-	private static List<String> alphabets = Arrays.asList("A", "B", "C", "D");
+	private static List<Character> alphabets = Arrays.asList('A','B','C');
 	private static List<String> strList = Arrays.asList("A", "B", "C", "D");
 	private static List<String> namesList = Arrays.asList("Melisandre", "Sansa", "Jon", "Daenerys", "Joffery", "Sansa");
 	private static List<Object[]> splitUpNames = Arrays.asList("John Woo", "Jeff Dean", "Josh Bloch", "Josh Long").stream().map(name -> name.split(" ")).collect(Collectors.toList());
@@ -23,9 +23,6 @@ public class ForEachWithList {
 	public static void main(String[] args) {
 		iterateListUsingForEachLoop();
 		findUniqueNamesFromList();
-		
-		
-		
 	}
 
 	public static void iterateListUsingForEachLoop() {
@@ -36,8 +33,8 @@ public class ForEachWithList {
 			System.out.println(personList.get(j));
 		}
 		// OR
-		for (Person i : personList) {
-			System.out.print(i + " ");
+		for (Person p : personList) {
+			System.out.print(p + " ");
 		}
 		// or
 		personList.forEach(emp -> System.out.println(emp));
