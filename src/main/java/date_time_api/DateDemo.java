@@ -10,6 +10,7 @@ import java.time.LocalTime;
 import java.time.Month;
 import java.time.OffsetDateTime;
 import java.time.Period;
+import java.time.Year;
 import java.time.ZoneId;
 import java.time.ZoneOffset;
 import java.time.ZonedDateTime;
@@ -18,30 +19,36 @@ import java.time.temporal.ChronoUnit;
 import java.time.temporal.TemporalAdjusters;
 import java.util.Date;
 
-public class Date_Time_API_01 {
+public class DateDemo {
 
 	public static void main(String[] args) throws InterruptedException {
-		
+
+		create_and_display_date();
+		check_Year_Is_LeapYear_Or_Not();
+
 		// Read more:
 		// http://java67.blogspot.com/2012/12/how-to-convert-sql-date-to-util-date.html#ixzz4CxzHTqrG
 		// https://javarevisited.blogspot.com/2015/03/20-examples-of-date-and-time-api-from-Java8.html#axzz6ue9olbTT
 
 		LocalDateTime localDateTime1 = LocalDateTime.now();
-		System.out.println("localDateTime1 : " + localDateTime1); //2021-05-12T19:37:12.925
-		
-		//extracting month,date from localDateTime.
+		System.out.println("localDateTime1 : " + localDateTime1); // 2021-05-12T19:37:12.925
+
+		// extracting month,date from localDateTime.
 		Month month = localDateTime1.getMonth();
 		int day = localDateTime1.getDayOfMonth();
 		int seconds = localDateTime1.getSecond();
 		int yr = localDateTime1.getYear();
-		System.out.println("Year:"+yr +" Month: " + month + " day: " + day + " seconds: " + seconds); //Month: MAYday: 12seconds: 12
-		
+		System.out.println("Year:" + yr + " Month: " + month + " day: " + day + " seconds: " + seconds); // Month:
+																											// MAYday:
+																											// 12seconds:
+																											// 12
+
 		LocalDateTime localDateTime2 = localDateTime1.withDayOfMonth(10).withYear(2012);
-		System.out.println("localDateTime2: " + localDateTime2); //2012-05-10T19:38:26.877
-		
-		//converting localDateTime to localDate
+		System.out.println("localDateTime2: " + localDateTime2); // 2012-05-10T19:38:26.877
+
+		// converting localDateTime to localDate
 		LocalDate localDate1 = localDateTime1.toLocalDate();
-		System.out.println("localDate1 : " + localDate1);//localDate1 : 2021-05-12
+		System.out.println("localDate1 : " + localDate1);// localDate1 : 2021-05-12
 
 		LocalDate date3 = LocalDate.of(2014, Month.DECEMBER, 12);
 		System.out.println("date3: " + date3); // 2014-12-12
@@ -70,7 +77,7 @@ public class Date_Time_API_01 {
 		// Get the current date and time
 		ZonedDateTime date11 = ZonedDateTime.parse("2007-12-03T10:15:30+05:30[Asia/Karachi]");
 		System.out.println("date1: " + date11);
-		
+
 		OffsetDateTime offsetDateTime = OffsetDateTime.now();
 		System.out.println(offsetDateTime);
 
@@ -245,5 +252,28 @@ public class Date_Time_API_01 {
 		System.out.println("TimeZone : " + result8.getZone());
 		LocalDate localDate8 = result.toLocalDate();
 		System.out.println("LocalDate : " + localDate8);
+	}
+
+	private static void check_Year_Is_LeapYear_Or_Not() {
+
+		// leap year
+		int yr = 1980;
+		Year y = Year.of(yr);
+		if (y.isLeap())
+			System.out.println("leap year");
+
+	}
+
+	private static void create_and_display_date() {
+
+		Date date1 = new Date();
+		System.out.println(date1);
+
+		Date date2 = new Date(2021, 05, 01);
+		System.out.println(date2);
+
+		int yr = date2.getMonth();
+		System.out.println(yr);
+
 	}
 }

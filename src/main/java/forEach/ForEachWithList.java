@@ -22,7 +22,7 @@ public class ForEachWithList {
 
 	public static void main(String[] args) {
 		iterateListUsingForEachLoop();
-		findUniqueNamesFromList();
+		findUniqueItemsFromList();
 	}
 
 	public static void iterateListUsingForEachLoop() {
@@ -140,7 +140,7 @@ public class ForEachWithList {
 
 	}
 
-	public static void findUniqueNamesFromList() {
+	public static void findUniqueItemsFromList() {
 		
 		// EX-way-01
 		List<String> list = new ArrayList<>();
@@ -155,5 +155,13 @@ public class ForEachWithList {
 		List<String> uniqueNames = namesList.stream().distinct().collect(Collectors.toList());
 		System.out.println(uniqueNames);
 
+	}
+}
+
+class MyCustomConsumer implements Consumer<Person> {
+	
+	@Override
+	public void accept(Person emp) {
+		System.out.print(emp + " ");
 	}
 }

@@ -65,7 +65,7 @@ public class ForEachWithMap {
 
 		});
 		
-		//My_Custom_Consumer2 consumer = new My_Custom_Consumer2();
-		//hmap.forEach(consumer);
 	}
 }
+
+
